@@ -29,7 +29,6 @@
 //
 
 /// \file
-/// \author  Bradley Lowekamp
 /// \version $Revision: 1.4 $
 /// \brief  Implmentation of base 64 encoding
 ///
@@ -253,23 +252,5 @@ namespace testutil {
   };
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.3  2003/12/04 20:00:19  blowek1
-// fixed typeo
-//
-// Revision 1.2  2003/11/26 16:16:02  blowek1
-// revision so that it is working
-//
-// Revision 1.1  2003/11/25 19:45:49  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//
 
 #endif // BASE64_H

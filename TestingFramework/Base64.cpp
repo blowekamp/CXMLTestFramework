@@ -25,7 +25,6 @@
 //
 
 /// \file
-/// \author  Bradley Lowekamp
 /// \version $Revision: 1.4 $
 /// \brief  
 ///
@@ -293,22 +292,3 @@ namespace testutil {
   };
 
 }
-
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.3  2005/06/30 13:51:04  blowek1
-// fixed the type of "j" for warnings and logic
-//
-// Revision 1.2  2003/11/26 16:16:00  blowek1
-// revision so that it is working
-//
-// Revision 1.1  2003/11/25 19:45:48  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//

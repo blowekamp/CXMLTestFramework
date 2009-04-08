@@ -33,7 +33,7 @@
 #include "RegressionTest.h"
 #include "Measurement.h"
 #include "MeasurementVisitor.h"
-#include "expat/expat.h"
+#include "expat.h"
 #include <string>
 #include <exception>
 #include <iostream>

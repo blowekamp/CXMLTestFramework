@@ -35,7 +35,7 @@
 ///
 ///
 
-#include "fileutil/PathName.h"
+#include "FileUtilities/PathName.h"
 #include <string>
 #include <iostream>
 #include <list>
@@ -59,7 +59,7 @@ namespace testutil {
   /// The command line arguments that it know is -I infilename -O
   /// outfilename. If -I is not specified then it will regression test
   /// will run in non-CompareMode
-  class TESTUTIL_EXPORT RegressionTest {
+  class TESTINGFRAMEWORK_EXPORT RegressionTest {
   public:
 
     RegressionTest(void);
