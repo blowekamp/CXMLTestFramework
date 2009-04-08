@@ -1,5 +1,5 @@
-#ifndef FILEUTIL_PATHNAME_H 	/* -*- c++ -*- */
-#define FILEUTIL_PATHNAME_H
+#ifndef FILEUTILITIES_PATHNAME_H 	/* -*- c++ -*- */
+#define FILEUTILITIES_PATHNAME_H
 
 
 //  $Id: PathName.h,v 1.7 2006-02-14 16:28:36 blowek1 Exp $
@@ -38,7 +38,7 @@
 #include <string>
 #include <ostream>
 #include <list>
-#include "fileutilConfigure.h"
+#include "FileUtilities/FileUtilitiesConfigure.h"
 
 namespace fileutil {
 
@@ -51,7 +51,7 @@ namespace fileutil {
 
   /// a component is
   /// a paht name is
-  class FILEUTIL_EXPORT PathName {
+  class FILEUTILITIES_EXPORT PathName {
   public:
     
     PathName(void);
@@ -175,32 +175,4 @@ namespace fileutil {
 }
 
 
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.6  2004/04/15 19:59:27  blowek1
-// changed to implicit conversion to PathName from strings
-//
-// Revision 1.5  2003/12/23 18:48:05  blowek1
-// added export support
-//
-// Revision 1.4  2003/12/15 16:36:17  dave
-//
-// fixed doxygen typos
-//
-// Revision 1.3  2003/12/12 21:14:58  blowek1
-// changed append function
-//
-// Revision 1.2  2003/12/12 20:43:11  blowek1
-// added deconstructor
-//
-// Revision 1.1  2003/12/12 20:15:35  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//
-
-#endif // FILEUTIL_PATHNAME_H
+#endif // FILEUTILITIES_PATHNAME_H

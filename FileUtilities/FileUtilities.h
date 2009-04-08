@@ -1,5 +1,5 @@
-#ifndef FILEUTIL_H 	/* -*- c++ -*- */
-#define FILEUTIL_H
+#ifndef FILEUTILITIES_H 	/* -*- c++ -*- */
+#define FILEUTILITIES_H
 
 
 //  $Id: FileUtil.h,v 1.5 2005-06-17 21:02:59 blowek1 Exp $
@@ -37,7 +37,7 @@
 
 #include <string>
 #include "PathName.h"
-#include "fileutilConfigure.h"
+#include "FileUtilitiesConfigure.h"
 
 namespace fileutil {
 
@@ -46,46 +46,23 @@ namespace fileutil {
   ///
   /// env is the name of the enviroment variable with the value of a
   /// colon separated sequence of path (relative or absolute.
-  FILEUTIL_EXPORT PathList GetPathFromEnviroment(const std::string &env);
+  FILEUTILITIES_EXPORT PathList GetPathFromEnviroment(const std::string &env);
 
   /// \brief extract a path list from a color separated list
-  FILEUTIL_EXPORT PathList GetPathListFromColonSeparatedList(const std::string &value);
+  FILEUTILITIES_EXPORT PathList GetPathListFromColonSeparatedList(const std::string &value);
 
 
 
   /// \brief changes the current working directory to path, if
   /// !IsDirectory() then an exception will be thrown
-  FILEUTIL_EXPORT bool SetCurrentDirectory(const PathName &path);
+  FILEUTILITIES_EXPORT bool SetCurrentDirectory(const PathName &path);
 
 #ifdef GetCurrentDirectory
 #undef GetCurrentDirectory
 #endif 
   /// \brief returns the current working directory
-  FILEUTIL_EXPORT PathName GetCurrentDirectory(void);
+  FILEUTILITIES_EXPORT PathName GetCurrentDirectory(void);
   
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.4  2004/03/24 16:09:13  blowek1
-// hacked a define in MS to be undefined
-//
-// Revision 1.3  2003/12/23 18:48:03  blowek1
-// added export support
-//
-// Revision 1.2  2003/12/15 16:36:17  dave
-//
-// fixed doxygen typos
-//
-// Revision 1.1  2003/12/12 20:15:33  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//
-
-#endif // FILEUTIL_H
+#endif // FILEUTILITIES_H

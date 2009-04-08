@@ -32,7 +32,7 @@
 ///
 
 
-#include "FileUtil.h"
+#include "FileUtilities.h"
 
 
 #include <sys/types.h>
@@ -108,37 +108,3 @@ namespace fileutil {
 	
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.5  2004/05/13 18:19:14  blowek1
-// removed extra output statement
-//
-// Revision 1.4  2004/05/13 18:17:42  blowek1
-// fixed bugs in GetPathFromEnviroment
-//
-// Revision 1.3  2004/03/02 20:21:52  blowek1
-// fixed null string bug in get path for enviroment function
-//
-// Revision 1.2  2003/12/15 15:36:27  blowek1
-// changed system defined
-//
-// Revision 1.1  2003/12/12 20:15:32  blowek1
-// initial check in
-//
-// Revision 1.2  2003/12/08 18:50:30  blowek1
-// got it to compile on windows
-//
-// Revision 1.1  2003/12/04 20:00:45  blowek1
-// initial check in
-//
-// Revision 1.1  2003/12/03 16:17:07  blowek1
-// incremental check in
-//
-//
-//
-//
-// ===========================================================================
-//
