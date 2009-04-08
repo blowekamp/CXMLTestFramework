@@ -51,8 +51,6 @@
 
 #define CATCH_STDEXCEPTION(type) catch( type &e) { std::cerr << #type ": \"" << e.what() << "\"\n";}
 
-using namespace fileutil;
-
 namespace testutil {
 
   
@@ -64,16 +62,16 @@ namespace testutil {
   }
   
   
-  void RegressionTest::SetInFileSearchPath(const PathList &path) {
+void RegressionTest::SetInFileSearchPath(const fileutil::PathList &path) {
     this->searchPath = path;
   }
 
-  const PathList &RegressionTest::GetInFileSearchPath(void) const {
+const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
     return this->searchPath;
   }
       
   void RegressionTest::SetInFileName(const std::string &fname) {
-    this->inFileName = PathName(fname); 
+    this->inFileName = fileutil::PathName(fname); 
   }
   
    
@@ -82,7 +80,7 @@ namespace testutil {
   }
 
   void RegressionTest::SetOutFileName(const std::string &fname) {
-    this->outFileName = PathName(fname); 
+    this->outFileName = fileutil::PathName(fname); 
   }
   
   const std::string &RegressionTest::GetOutFileName(void) const {
@@ -110,7 +108,7 @@ namespace testutil {
       return true;
     if (this->GetInFileName() == "")
       return false;
-    PathName infname = this->inFileName.SearchPathList(this->GetInFileSearchPath());
+    fileutil::PathName infname = this->inFileName.SearchPathList(this->GetInFileSearchPath());
     if (infname.GetPathName() != "")
       return infname.IsFile() && infname.IsReadable();
     else 					   
@@ -191,7 +189,7 @@ namespace testutil {
       if (!strcmp("-O", argv[i])) {
 	if (i < argc-1) {
 	  outfname = argv[i+1];
-	  PathName pn(outfname);
+          fileutil::PathName pn(outfname);
 	  if (pn.IsFile() && !pn.IsWritable()) {
 	    std::cerr << "unable to write to file \"" << outfname << "\"!" << std::endl;
 	    outfname = 0;
@@ -211,7 +209,7 @@ namespace testutil {
 	if (i < argc-1) {
 	  
 	  infname = argv[i+1];	 
-	  PathName pn(infname);
+          fileutil::PathName pn(infname);
 	  if (!pn.IsFile() || !pn.IsReadable()) {	  
 	    std::cerr << "unable to read from file \"" << infname << "\"!" << std::endl;
  	    infname = 0;
@@ -319,7 +317,7 @@ namespace testutil {
 	MeasurementFile *inf, *tf;
 	if ((inf = dynamic_cast<MeasurementFile*>(input)) &&
 	    (tf = dynamic_cast<MeasurementFile*>(&test))) {
-	  inf->SetFileName(PathName(PathName(tf->GetFileName()).DirectoryName()).Append(PathName(inf->GetFileName()).Tail()).GetPathName());
+        inf->SetFileName(fileutil::PathName(fileutil::PathName(tf->GetFileName()).DirectoryName()).Append(fileutil::PathName(inf->GetFileName()).Tail()).GetPathName());
 	}
 	
 	 
@@ -387,7 +385,7 @@ namespace testutil {
       mf.SetFileName(fileName);
       return this->CompareMeasurement(mf);
     } else {
-      mf.SetFileName(PathName(fileName).Tail().GetPathName());
+    mf.SetFileName(fileutil::PathName(fileName).Tail().GetPathName());
       this->GetOutStream() << mf << std::endl;
     }    
     return 0;
@@ -475,7 +473,7 @@ namespace testutil {
       mf.SetFileName(fileName);
       return this->CompareMeasurement(mf);
     } else {
-      mf.SetFileName(PathName(fileName).Tail().GetPathName());
+    mf.SetFileName(fileutil::PathName(fileName).Tail().GetPathName());
       this->GetOutStream() << mf << std::endl;
     }    
     return 0;
@@ -491,7 +489,7 @@ namespace testutil {
       mf.SetFileName(fileName);
       return this->CompareMeasurement(mf);
     } else {
-      mf.SetFileName(PathName(fileName).Tail().GetPathName());
+    mf.SetFileName(fileutil::PathName(fileName).Tail().GetPathName());
       this->GetOutStream() << mf << std::endl;
     }    
     return 0;
@@ -519,7 +517,7 @@ namespace testutil {
     this->GetOutStream() << "</output>" << std::endl;
   }
 
-  namespace {
+namespace {
     
 
     struct XMLParseData {
@@ -634,7 +632,7 @@ namespace testutil {
 	pd.data.append(s, len);
       
     }
-  }
+}
 
   void RegressionTest::ReadXMLInput(void) {
     static const size_t BUFFSIZE = 1024;
