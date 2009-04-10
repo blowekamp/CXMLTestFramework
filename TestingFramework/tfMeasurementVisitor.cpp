@@ -31,9 +31,9 @@
 ///
 ///
 
-#include "MeasurementVisitor.h"
-#include "Measurement.h"
-#include "diff.h"
+#include "tfMeasurementVisitor.h"
+#include "tfMeasurement.h"
+#include "tfDiff.h"
 #include <sstream>
 
 namespace testutil {
@@ -106,7 +106,7 @@ namespace testutil {
     std::ostringstream ostr;
     Diff(input.GetContent(), m.GetContent(), ostr);
     /////// THIS SHOULD BE PLAINTEXT, BUT DART DOES NOT SUPPORT IT YET!!
-    StringText diff;
+    PlainText diff;
     diff.SetAttributeName(std::string("Difference ")+m.GetAttributeName());
     diff.SetContent(ostr.str());
     
@@ -119,7 +119,7 @@ namespace testutil {
 
   void DifferenceVisitor::AddPrefixesToNames(Measurement &test, Measurement &input) {
       
-    input.SetAttributeName(std::string("Input ") + input.GetAttributeName());
+    input.SetAttributeName(std::string("Baseline ") + input.GetAttributeName());
     test.SetAttributeName(std::string("Test ") + test.GetAttributeName());
   }
 

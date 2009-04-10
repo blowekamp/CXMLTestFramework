@@ -30,9 +30,9 @@
 /// \brief  
 ///
 ///
-#include "RegressionTest.h"
-#include "Measurement.h"
-#include "MeasurementVisitor.h"
+#include "tfRegressionTest.h"
+#include "tfMeasurement.h"
+#include "tfMeasurementVisitor.h"
 #include "expat.h"
 #include <string>
 #include <exception>

@@ -39,7 +39,7 @@
 #include <string>
 #include <iostream>
 #include <list>
-#include "testutilConfigure.h"
+#include "TestingFramework/TestFrameworkConfigure.h"
 
 namespace testutil {
   
@@ -168,6 +168,7 @@ namespace testutil {
     /// Valid only when the files have been opened
     virtual std::istream &GetInStream(void) const;
     
+  private:
     /// opens and reads the files. called before Test
     virtual void BeginMeasurement(void);
 

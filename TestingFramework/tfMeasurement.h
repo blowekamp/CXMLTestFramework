@@ -33,7 +33,7 @@
 /// \version $Revision: 1.14 $
 /// \brief  classes to be used as measurements for a dart board testing
 ///
-/// \note the cache mechnism and conversion methods are not effcient
+/// \note the cache mechnism and conversion methods are not efficient
 /// and are waitful with allocations and copying.
 
 #include <string> 
@@ -152,6 +152,8 @@ namespace testutil {
 
     
   /// \brief A Measurement where the content is a file name
+  //
+  //  \todo attention needs to be made to this class
   class MeasurementFile
     : public Measurement {
   public:
@@ -613,61 +615,6 @@ namespace testutil {
   DataMeasurement *CreateDataMeasurement(const std::string attributeType);
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.13  2004/04/23 15:12:34  blowek1
-// tried to fix gcc 3.4 compile error
-//
-// Revision 1.12  2004/01/14 19:34:10  blowek1
-// fixed MS warning
-//
-// Revision 1.11  2003/12/30 21:12:41  blowek1
-// fixes for windows
-//
-// Revision 1.10  2003/12/22 20:38:54  blowek1
-// added epsilon for the absolute tolerance for the comparative compare
-//
-// Revision 1.9  2003/12/19 19:49:04  blowek1
-// made the tolerant compare loose
-//
-// Revision 1.8  2003/12/19 15:35:30  blowek1
-// looking for fabs...
-//
-// Revision 1.7  2003/12/18 20:50:05  blowek1
-// added IsEqualTolerance to Numeric measurements
-//
-// Revision 1.6  2003/12/15 16:36:17  dave
-//
-// fixed doxygen typos
-//
-// Revision 1.5  2003/12/08 16:01:04  blowek1
-// added assignement and copy operators to measuremetns, and added return value to Main
-//
-// Revision 1.4  2003/12/05 20:46:53  blowek1
-// added numeric classes
-//
-// Revision 1.3  2003/12/03 19:56:32  blowek1
-// added more documentation
-//
-// Revision 1.2  2003/12/03 18:18:09  blowek1
-// incremental check in
-//
-// Revision 1.1  2003/12/03 16:16:38  blowek1
-// incremental check in
-//
-// Revision 1.2  2003/11/26 16:15:47  blowek1
-// revision so that it is working
-//
-// Revision 1.1  2003/11/25 19:45:57  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//
 
 #endif // MEASUREMENT_H
     

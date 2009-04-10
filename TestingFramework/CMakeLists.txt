@@ -1,23 +1,21 @@
 PROJECT( TESTINGFRAMEWORK )
 
 SET( TESTINGFRAMEWORK_LIB_SRC
-  Base64.cpp
-  RegressionTest.cpp
-  Measurement.cpp
-  MeasurementVisitor.cpp
-  diff.cpp
+  tfBase64.cpp
+  tfRegressionTest.cpp
+  tfMeasurement.cpp
+  tfMeasurementVisitor.cpp
+  tfDiff.cpp
   )
 
 FIND_PACKAGE ( EXPAT REQUIRED )
 
 INCLUDE_DIRECTORIES("${EXPAT_INCLUDE_DIRS}" "${TESTINGFRAMEWORK_BINARY_DIR}" )
 
-
-
 CONFIGURE_FILE("${TESTINGFRAMEWORK_SOURCE_DIR}/TestFrameworkConfigure.h.in"
-  "${TESTINGFRAMEWORK_BINARY_DIR}/TestFramework
-Configure.h" IMEDIATE) 
- 
+  "${TESTINGFRAMEWORK_BINARY_DIR}/TestFrameworkConfigure.h" IMEDIATE) 
+
+ADD_SUBDIRECTORY ( tests ) 
 
 ADD_LIBRARY( testingframework ${TESTINGFRAMEWORK_LIB_SRC} )
 TARGET_LINK_LIBRARIES( testingframework ${EXPAT_LIBRARIES} fileutil )
