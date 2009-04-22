@@ -42,7 +42,10 @@ protected:
 int tfRegressionTestOutputTest1( int argc, char *argv[] )
 {
   tfRegressionTestOutputTest1RegressionTest test; 
-  if ( EXIT_FAILURE == test.Main( argc, argv ) ) 
+  int ret = test.Main( argc, argv ) ;
+
+  // we expect all 5 Measurements to be different 
+  if ( ret == 5 )
     {
     return EXIT_SUCCESS;
     }
