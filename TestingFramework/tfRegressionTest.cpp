@@ -177,50 +177,59 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
   }
 
 
-  void RegressionTest::ParseAndRemoveArguments(int argc, char *argv[]) {
+  void RegressionTest::ParseAndRemoveArguments(int &argc, char *argv[]) {
      const char *infname = 0;
     const char *outfname = 0;
 	
     // search for the arguments that we know and remove them
 	
-    // output filename option
-    for (int i = 1; i < argc; ++i) {
-      
-      if (!strcmp("-O", argv[i])) {
-	if (i < argc-1) {
+    for (int i = 1; i < argc; ++i) 
+      {      
+      // output filename option
+      if (!strcmp("-O", argv[i])) 
+        {
+	if (i < argc-1) 
+          {
 	  outfname = argv[i+1];
           fileutil::PathName pn(outfname);
-	  if (pn.IsFile() && !pn.IsWritable()) {
+	  if (pn.IsFile() && !pn.IsWritable()) 
+            {
 	    std::cerr << "unable to write to file \"" << outfname << "\"!" << std::endl;
 	    outfname = 0;
-	  }
+            }
 	  else 
-	    ++i;
+	    ++i; // fell off the end
 	  for (; i+1 < argc; ++i)
 	    std::swap(argv[i+1], argv[i-1]);
 	  argc -=2;
-	}
-      }
-    }
-	  
-    // input filename option
-    for (int i = 1; i < argc; ++i) {
-      if (!strcmp("-I", argv[i])) {
-	if (i < argc-1) {
+          }
+        }    
+      // input filename option
+      else if (!strcmp("-I", argv[i])) 
+        {
+	if (i < argc-1) 
+          {
 	  
 	  infname = argv[i+1];	 
           fileutil::PathName pn(infname);
-	  if (!pn.IsFile() || !pn.IsReadable()) {	  
+	  if (!pn.IsFile() || !pn.IsReadable()) 
+            {	  
 	    std::cerr << "unable to read from file \"" << infname << "\"!" << std::endl;
  	    infname = 0;
-	  } else 
-	    ++i;
+            } 
+          else 
+	    ++i; // fell off the end
 	  for (; i+1 < argc; ++i)
 	    std::swap(argv[i+1], argv[i-1]);
 	  argc -=2;
-	}
+          }
+        }
+      else
+        {
+        break;
+        }
+      
       }
-    }
 
     if (infname)
       this->SetInFileName(infname);
@@ -277,7 +286,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 
   void RegressionTest::UnmatchedMeasurement(Measurement &test){    
     this->inputUnmatched++;
-    //    std::cerr << "Unmatched measurement \"" << test.GetAttributeName() << "\"." << std::endl;    
+     test.SetAttributeName(std::string("Unmatched ") + test.GetAttributeName());
     this->GetOutStream() << test << std::endl;
   }
 
@@ -312,7 +321,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
       if (input->GetAttributeName() == test.GetAttributeName() &&
 	  input->GetAttributeType() == test.GetAttributeType()) {
 	
-	// this is so very uggly
+	// this is so very ugly
 	// use the path of the test file to find the input file
 	MeasurementFile *inf, *tf;
 	if ((inf = dynamic_cast<MeasurementFile*>(input)) &&
@@ -454,14 +463,14 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
     return 0;
   }
     
-  int RegressionTest::MeasurementImagePNG(const std::string &name) {
-    return -1;
-  }
+//   int RegressionTest::MeasurementImagePNG(const std::string &name) {
+//     return -1;
+//   }
 
   
-  int RegressionTest::MeasurementImageJPEG(const std::string &name) {
-    return -1;
-  }
+//   int RegressionTest::MeasurementImageJPEG(const std::string &name) {
+//     return -1;
+//   }
 
   
   int RegressionTest::MeasurementFileImagePNG(const std::string &fileName, const std::string &name)  {
@@ -474,7 +483,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
       return this->CompareMeasurement(mf);
     } else {
     mf.SetFileName(fileutil::PathName(fileName).Tail().GetPathName());
-      this->GetOutStream() << mf << std::endl;
+    this->GetOutStream() << mf << std::endl;
     }    
     return 0;
   }

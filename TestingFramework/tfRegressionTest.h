@@ -140,13 +140,15 @@ namespace testutil {
     virtual int MeasurementNumericDouble(double d, const std::string &name, bool tolerant = true);
     virtual int MeasurementNumericBoolean(bool b, const std::string &name, bool tolerant = false);
     
-    virtual int MeasurementImagePNG(const std::string &name);
-    virtual int MeasurementImageJPEG(const std::string &name);
+//     virtual int MeasurementImagePNG(const std::string &name);
+//     virtual int MeasurementImageJPEG(const std::string &name);
 
 
     ///@{
     /// \brief Records/Compares a measurement where the content is in a file
     ///
+    /// Need to update this
+    //
     /// The full pathname should be used for fileName, however this
     /// will not be checked. When in compare mode The full paths will
     /// be printed in the output, otherwise just the filename will be
@@ -199,8 +201,8 @@ namespace testutil {
     virtual DifferenceVisitor *CreateDifferenceVisitor(void) const;
 
     /// Pareses are removes the -I infilename -O outfilename from the
-    /// command line arguments
-    virtual void ParseAndRemoveArguments(int argc, char *argv[]);
+    /// begining of the command line arguments
+    virtual void ParseAndRemoveArguments(int &argc, char *argv[]);
 
   
     /// writes the XML header when writing to a file
