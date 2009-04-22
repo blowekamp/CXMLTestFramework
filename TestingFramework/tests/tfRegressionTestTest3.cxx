@@ -18,7 +18,7 @@ protected:
       this->MeasurementNumericInteger( int(0), "NumericInteger" );
       this->MeasurementNumericFloat( float(1.1), "NumericFloat" );
       this->MeasurementNumericDouble( double(30.0/9.0), "NumericDouble" );
-      this->MeasurementNumericBoolean( true, "NumericDouble" );
+      this->MeasurementNumericBoolean( true, "NumericBoolean" );
 
       }
     else 
@@ -29,7 +29,7 @@ protected:
       this->MeasurementNumericInteger( int(1), "NumericInteger" );
       this->MeasurementNumericFloat( float(2.2), "NumericFloat" );
       this->MeasurementNumericDouble( double(40.0/9.0), "NumericDouble" );
-      this->MeasurementNumericBoolean( false, "NumericDouble" );
+      this->MeasurementNumericBoolean( false, "NumericBoolean" );
       }
 
     return EXIT_SUCCESS;
@@ -43,12 +43,13 @@ int tfRegressionTestTest3( int argc, char *argv[] )
   tfRegressionTestTest3RegressionTest test; 
   int ret = test.Main( argc, argv );
 
-  if ( EXIT_SUCCESS != ret  ) 
+  if ( 6 == ret  ) 
     {
     return EXIT_SUCCESS;
     }
   else 
     {
+    std::cerr << "Expected regression test to return 6 measurements not matching" << std::endl;
     return EXIT_FAILURE;
     }
   

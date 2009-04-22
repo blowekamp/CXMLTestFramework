@@ -16,7 +16,7 @@ protected:
     this->MeasurementNumericInteger( int(0), "NumericInteger" );
     this->MeasurementNumericFloat( float(1.1), "NumericFloat" );
     this->MeasurementNumericDouble( double(20.0/9.0), "NumericDouble" );
-    this->MeasurementNumericBoolean( true, "NumericDouble" );
+    this->MeasurementNumericBoolean( true, "NumericBoolean" );
     
 
     return EXIT_SUCCESS;

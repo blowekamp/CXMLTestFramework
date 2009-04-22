@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!-- created on victoria.nlm.nih.gov at Thu Apr  9 16:21:17 2009
+<!-- created on victoria.nlm.nih.gov at Wed Apr 22 15:49:06 2009
  -->
 <output>
 <DartMeasurement name="TextString" type="text/string">difference string text value</DartMeasurement>
@@ -9,5 +9,5 @@
 <DartMeasurement name="NumericInteger" type="numeric/integer">1</DartMeasurement>
 <DartMeasurement name="NumericFloat" type="numeric/float">2.2</DartMeasurement>
 <DartMeasurement name="NumericDouble" type="numeric/double">4.44444</DartMeasurement>
-<DartMeasurement name="NumericDouble" type="numeric/boolean">1</DartMeasurement>
+<DartMeasurement name="NumericBoolean" type="numeric/boolean">0</DartMeasurement>
 </output>

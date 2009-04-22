@@ -1,0 +1,16 @@
+#ifndef _TF_TESTSUPPORT_H
+#define _TF_TESTSUPPORT_H
+
+
+namespace testutil 
+{
+
+static const int TF_EXIT_FAILURE = 1;
+static const int TF_EXIT_SUCCESS = 0; 
+
+static const char * const TF_XML_BASELINE = "@TESTINGFRAMEWORK_XML_BASELINE@";
+static const char * const TF_DATA_BASELINE = "@TESTINGFRAMEWORK_DATA_BASELINE@";
+
+
+}
+#endif // _TF_TESTSUPPORT_H
