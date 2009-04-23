@@ -49,7 +49,7 @@ int tfRegressionTestTest3( int argc, char *argv[] )
     }
   else 
     {
-    std::cerr << "Expected regression test to return 6 measurements not matching" << std::endl;
+    std::cerr << "Expected regression test to return 6 measurements not matching but got " << ret << std::endl;
     return EXIT_FAILURE;
     }
   
