@@ -62,27 +62,27 @@ namespace testutil {
   public:
     virtual ~MeasurementVisitor(void) = 0;
 
-    virtual void VisitMeasurement(Measurement &m);
+    virtual void Visit(Measurement &m);
 
-    virtual void VisitMeasurementFile(MeasurementFile &m);
+    virtual void Visit(MeasurementFile &m);
 
-    virtual void VisitDataMeasurement(DataMeasurement &m);
+    virtual void Visit(DataMeasurement &m);
 
-    virtual void VisitTextData(TextData &m);
+    virtual void Visit(TextData &m);
 
-    virtual void VisitPlainText(PlainText &m);
+    virtual void Visit(PlainText &m);
 
-    virtual void VisitStringText(StringText &m);
+    virtual void Visit(StringText &m);
 
-    virtual void VisitNumericData(NumericData &m);
+    virtual void Visit(NumericData &m);
 
-    virtual void VisitIntegerNumeric(IntegerNumeric &m);
+    virtual void Visit(IntegerNumeric &m);
 
-    virtual void VisitFloatNumeric(FloatNumeric &m);
+    virtual void Visit(FloatNumeric &m);
 
-    virtual void VisitDoubleNumeric(DoubleNumeric &m);
+    virtual void Visit(DoubleNumeric &m);
 
-    virtual void VisitBooleanNumeric(BooleanNumeric &m);
+    virtual void Visit(BooleanNumeric &m);
 
   };
 
@@ -112,10 +112,55 @@ namespace testutil {
     ///
     /// by default this will be called for all types of measurements
     /// unless overridden
-    virtual void VisitMeasurement(Measurement &m);
-
+    virtual void Visit(Measurement &m);
+    
     /// \brief performs a "diff" on the two texticies and prints
-    virtual void VisitPlainText(PlainText &m);
+    virtual void Visit(PlainText &m);
+
+  protected:
+    Measurement *_input; // not freed
+    
+    /// \brief get the out put stream
+    virtual std::ostream &GetOutStream(void) const;
+
+    /// \brief modifies the Measuremnt objects to add
+    virtual void AddPrefixesToNames(Measurement &test, Measurement &input);
+
+  private:
+    
+    std::ostream *os; 
+    
+  };
+
+
+  /// \brief Visitor to compare two measurements
+  ///
+  /// This visitor will be called from the generated test data and
+  /// compared with the ground truth input data.
+  ///
+  /// \note This may modifiy both Measurement objects.
+  class CompareVisitor 
+    : public MeasurementVisitor {
+  public:
+
+    virtual ~CompareVisitor(void);
+
+    /// \brief sets the input measurement
+    ///
+    /// This function does not free the measurement. And the
+    /// measurement object must be valid when the visitation takes place.
+    virtual void SetInputMeasurement(Measurement *m);
+
+    /// \brief prints out the input and the test measurements
+    ///
+    /// by default this will be called for all types of measurements
+    /// unless overridden
+    virtual void Visit(Measurement &m);
+    
+    virtual void Visit(NumericData &m);
+    
+    virtual void Visit(MeasurementFile &m);
+    
 
   protected:
     Measurement *_input; // not freed

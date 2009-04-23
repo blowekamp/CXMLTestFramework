@@ -41,46 +41,46 @@ namespace testutil {
 
   MeasurementVisitor::~MeasurementVisitor(void) {}
 
-  void MeasurementVisitor::VisitMeasurement(Measurement &m) {}
+  void MeasurementVisitor::Visit(Measurement &m) {}
 
-  void MeasurementVisitor::VisitMeasurementFile(MeasurementFile &m) {
-    this->VisitMeasurement(m);
+  void MeasurementVisitor::Visit(MeasurementFile &m) {
+    this->Visit(static_cast<Measurement&>(m));
   }
 
-  void MeasurementVisitor::VisitDataMeasurement(DataMeasurement &m) {
-    this->VisitMeasurement(m);
+  void MeasurementVisitor::Visit(DataMeasurement &m) {
+    this->Visit(static_cast<Measurement&>(m));
   }   
 
-  void MeasurementVisitor::VisitTextData(TextData &m) {
-    this->VisitDataMeasurement(m);
+  void MeasurementVisitor::Visit(TextData &m) {
+    this->Visit(static_cast<DataMeasurement&>(m));
   }
 
-  void MeasurementVisitor::VisitPlainText(PlainText &m) {
-    this->VisitTextData(m);
+  void MeasurementVisitor::Visit(PlainText &m) {
+    this->Visit(static_cast<TextData&>(m));
   }
 
-  void MeasurementVisitor::VisitStringText(StringText &m) {
-    this->VisitTextData(m);
+  void MeasurementVisitor::Visit(StringText &m) {
+    this->Visit(static_cast<TextData&>(m));
   }
   
-  void MeasurementVisitor::VisitNumericData(NumericData &m) {
-    this->VisitDataMeasurement(m);
+  void MeasurementVisitor::Visit(NumericData &m) {
+    this->Visit(static_cast<DataMeasurement&>(m));
   }
   
-  void MeasurementVisitor::VisitIntegerNumeric(IntegerNumeric &m) {
-    this->VisitNumericData(m);
+  void MeasurementVisitor::Visit(IntegerNumeric &m) {
+    this->Visit(static_cast<NumericData&>(m));
   }
   
-  void MeasurementVisitor::VisitFloatNumeric(FloatNumeric &m)  {
-    this->VisitNumericData(m);
+  void MeasurementVisitor::Visit(FloatNumeric &m)  {
+    this->Visit(static_cast<NumericData&>(m));
   }
 
-  void MeasurementVisitor::VisitDoubleNumeric(DoubleNumeric &m)  {
-    this->VisitNumericData(m);
+  void MeasurementVisitor::Visit(DoubleNumeric &m)  {
+    this->Visit(static_cast<NumericData&>(m));
   }
   
-  void MeasurementVisitor::VisitBooleanNumeric(BooleanNumeric &m)  {
-    this->VisitNumericData(m);
+  void MeasurementVisitor::Visit(BooleanNumeric &m)  {
+    this->Visit(static_cast<NumericData&>(m));
   }
 
   DifferenceVisitor::~DifferenceVisitor(void) {}
@@ -89,7 +89,7 @@ namespace testutil {
   
   void DifferenceVisitor::SetOutStream(std::ostream &_os) { this->os = &_os;}
     
-  void DifferenceVisitor::VisitMeasurement(Measurement &m) {
+  void DifferenceVisitor::Visit(Measurement &m) {
     Measurement &input = *this->_input; 
     
     this->AddPrefixesToNames(m, input);
@@ -100,12 +100,11 @@ namespace testutil {
 
 
   
-  void DifferenceVisitor::VisitPlainText(PlainText &m) {
+  void DifferenceVisitor::Visit(PlainText &m) {
     Measurement &input = *this->_input; 
     
     std::ostringstream ostr;
     Diff(input.GetContent(), m.GetContent(), ostr);
-    /////// THIS SHOULD BE PLAINTEXT, BUT DART DOES NOT SUPPORT IT YET!!
     PlainText diff;
     diff.SetAttributeName(std::string("Difference ")+m.GetAttributeName());
     diff.SetContent(ostr.str());

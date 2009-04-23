@@ -153,7 +153,7 @@ namespace testutil {
 
   
   void Measurement::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitMeasurement(*this);
+    visitor.Visit(*this);
   }
   
 
@@ -222,7 +222,7 @@ namespace testutil {
 
   
   void MeasurementFile::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitMeasurementFile(*this);
+    visitor.Visit(*this);
   }
 
   
@@ -464,7 +464,7 @@ namespace testutil {
 
   
   void DataMeasurement::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitDataMeasurement(*this);
+    visitor.Visit(*this);
   }
 
 
@@ -509,30 +509,30 @@ namespace testutil {
   }
     
   void TextData::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitTextData(*this);
+    visitor.Visit(*this);
   }
 
 
   
 
   void PlainText::AcceptVisitor( MeasurementVisitor &visitor) {
-    visitor.VisitPlainText(*this);
+    visitor.Visit(*this);
   }
   
   
   void StringText::AcceptVisitor( MeasurementVisitor &visitor) {
-    visitor.VisitStringText(*this);
+    visitor.Visit(*this);
   }
 
   
   
   void NumericData::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitNumericData(*this);
+    visitor.Visit(*this);
   }
 
 
   void IntegerNumeric::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitIntegerNumeric(*this);
+    visitor.Visit(*this);
   }
  
   int IntegerNumeric::GetValue(void) const {
@@ -549,7 +549,7 @@ namespace testutil {
   }
 
   void FloatNumeric::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitFloatNumeric(*this);
+    visitor.Visit(*this);
   }
  
   float FloatNumeric::GetValue(void) const {
@@ -566,7 +566,7 @@ namespace testutil {
   }
 
   void DoubleNumeric::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitDoubleNumeric(*this);
+    visitor.Visit(*this);
   }
  
   double DoubleNumeric::GetValue(void) const {
@@ -583,7 +583,7 @@ namespace testutil {
   }
  
   void BooleanNumeric::AcceptVisitor(MeasurementVisitor &visitor) {
-    visitor.VisitBooleanNumeric(*this);
+    visitor.Visit(*this);
   }
  
   bool BooleanNumeric::GetValue(void) const {
