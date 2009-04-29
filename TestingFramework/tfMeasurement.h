@@ -612,6 +612,8 @@ namespace testutil {
   /// \note this is the limiting function for the expandibility of the
   /// measurement types. Every time a new type is created this class
   /// will need to be modified.
+  /// \todo This should really implement some type of ObjectFactory so
+  /// the types can be expanded.
   DataMeasurement *CreateDataMeasurement(const std::string attributeType);
 }
 

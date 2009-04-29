@@ -122,26 +122,57 @@ namespace testutil {
     test.SetAttributeName(std::string("Test ") + test.GetAttributeName());
   }
 
+
+  CompareVisitor::CompareVisitor(void) :
+    compareResults(false),
+    tolerantCompare(false),
+    relativeTolerance(0.0) 
+  {
+  }
+
+  CompareVisitor::~CompareVisitor(void) {}
+
+  void CompareVisitor::SetTolerance( double tolerance )
+  {
+    if (tolerance == 0.0) 
+      this->SetToleranceOff();
+    else 
+      {
+      this->tolerantCompare = true;
+      this->relativeTolerance = tolerance;
+      }
+  }
+
+  double CompareVisitor::GetTolerance( void ) const
+  {
+    if (this->tolerantCompare)
+      return this->relativeTolerance;
+    else
+      return 0.0;
+  }
+
+  void CompareVisitor::SetInputMeasurement(Measurement *m) { this->_input = m;}
+  
+
+  void CompareVisitor::Visit(Measurement &m) {    
+    Measurement &input = *this->_input;
+    this->compareResults = ( input == m );
+  }
+
+  void CompareVisitor::Visit(NumericData &m) {
+    NumericData *input;
+    if ( input = dynamic_cast<NumericData*>(this->_input)) 
+      {
+      if ( this->GetTolerance() != 0.0 )
+        this->compareResults = input->IsEqualTolerant(m, this->GetTolerance() );
+      else 
+        this->compareResults = ( *input == m );
+      }
+    else
+      {
+      this->compareResults = false;
+      }
+  }
+
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.4  2003/12/12 19:09:46  blowek1
-// added a work around for dart
-//
-// Revision 1.3  2003/12/05 20:46:57  blowek1
-// added numeric classes
-//
-// Revision 1.2  2003/12/04 20:01:14  blowek1
-// mostly added documentation
-//
-// Revision 1.1  2003/12/03 16:16:39  blowek1
-// incremental check in
-//
-//
-//
-// ===========================================================================
-//

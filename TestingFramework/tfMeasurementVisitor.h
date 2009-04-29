@@ -142,8 +142,23 @@ namespace testutil {
   class CompareVisitor 
     : public MeasurementVisitor {
   public:
-
+    CompareVisitor(void);
     virtual ~CompareVisitor(void);
+
+    //@{
+    /// \brief set/get tolerance for compareing numeric data
+    virtual void SetToleranceOff(void) { this->tolerantCompare = false; }
+    virtual void SetTolerance( double tolerance );
+    virtual double GetTolerance( void ) const;
+    //@}
+    /// \brief returns the the results of the comparison
+    ///
+    /// return true if the visited measurement and input measurement
+    /// are equivalent
+    ///
+    /// \pre is is assumed that visitation has already occoured,
+    /// otherwise the results are undefined
+    virtual bool GetResult(void) const {return this->compareResults;}
 
     /// \brief sets the input measurement
     ///
@@ -151,30 +166,20 @@ namespace testutil {
     /// measurement object must be valid when the visitation takes place.
     virtual void SetInputMeasurement(Measurement *m);
 
-    /// \brief prints out the input and the test measurements
-    ///
-    /// by default this will be called for all types of measurements
-    /// unless overridden
-    virtual void Visit(Measurement &m);
-    
+ 
+    /// \brief uses the default operator== of the measurements
+    virtual void Visit(Measurement &m);        
+
+    /// \brief equivalent comparison but adds relative tolerance options
     virtual void Visit(NumericData &m);
-    
-    virtual void Visit(MeasurementFile &m);
     
 
   protected:
     Measurement *_input; // not freed
     
-    /// \brief get the out put stream
-    virtual std::ostream &GetOutStream(void) const;
-
-    /// \brief modifies the Measuremnt objects to add
-    virtual void AddPrefixesToNames(Measurement &test, Measurement &input);
-
-  private:
-    
-    std::ostream *os; 
-    
+    bool compareResults;
+    bool tolerantCompare;
+    double relativeTolerance;
   };
 
 }

@@ -45,6 +45,7 @@ namespace testutil {
   
   class Measurement;
   class DifferenceVisitor;
+  class CompareVisitor;
 
   /// \brief A base class for implementing tests
   ///
@@ -132,8 +133,8 @@ namespace testutil {
     virtual int MeasurementTextPlain(const std::string &str, const std::string &name);
 
 
-    virtual int MeasurementLinkURL(const std::string &name);
-    virtual int MeasurementLinkImage(const std::string &name);
+//     virtual int MeasurementLinkURL(const std::string &name);
+//    virtual int MeasurementLinkImage(const std::string &name);
 
     virtual int MeasurementNumericInteger(int i, const std::string &name, bool tolerant = false);
     virtual int MeasurementNumericFloat(float f, const std::string &name, bool tolerant = true);
@@ -170,6 +171,14 @@ namespace testutil {
     /// Valid only when the files have been opened
     virtual std::istream &GetInStream(void) const;
     
+    
+    
+    /// compares the test measurement with the current input
+    /// measurement. May print output
+    ///
+    /// returns 0 if they are the same, non-zero other wise
+    virtual int CompareMeasurement(Measurement &test, bool tolerant = false);
+
   private:
     /// opens and reads the files. called before Test
     virtual void BeginMeasurement(void);
@@ -177,12 +186,6 @@ namespace testutil {
     /// closes files, called after Test
     virtual void EndMeasurement(void);
 
-    
-    /// compares the test measurement with the current input
-    /// measurement. May print output
-    ///
-    /// returns 0 if they are the same, non-zero other wise
-    virtual int CompareMeasurement(Measurement &test, bool tolerant = false);
 
     /// a test measurement did not match the current input
     /// measurement. May pring output
@@ -199,6 +202,9 @@ namespace testutil {
 
     /// Creates a difference visitor for the measurement
     virtual DifferenceVisitor *CreateDifferenceVisitor(void) const;
+
+    /// Creates a compare visitor for the measurement
+    virtual CompareVisitor *CreateCompareVisitor(void) const;
 
     /// Pareses are removes the -I infilename -O outfilename from the
     /// begining of the command line arguments
@@ -256,60 +262,6 @@ namespace testutil {
 }
 
 
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.15  2004/02/06 16:33:13  blowek1
-// updated documentation
-//
-// Revision 1.14  2003/12/23 18:49:20  blowek1
-// added export support
-//
-// Revision 1.13  2003/12/19 18:28:19  blowek1
-// implemented tolerant measuremtns
-//
-// Revision 1.12  2003/12/18 20:49:25  blowek1
-// begun implementing tolerant compare
-//
-// Revision 1.11  2003/12/15 16:36:17  dave
-//
-// fixed doxygen typos
-//
-// Revision 1.10  2003/12/12 20:20:54  blowek1
-// move file utils to a separate directory
-//
-// Revision 1.9  2003/12/10 22:01:23  blowek1
-// added documentation to the what the Measurement file will be handled
-//
-// Revision 1.8  2003/12/09 16:14:26  blowek1
-// fixed typeo
-//
-// Revision 1.7  2003/12/09 16:13:31  blowek1
-// added measuementfile plaintext
-//
-// Revision 1.6  2003/12/08 18:50:30  blowek1
-// got it to compile on windows
-//
-// Revision 1.5  2003/12/05 20:47:29  blowek1
-// added numeric classes, and a bunch of other improvements, incremential
-//
-// Revision 1.4  2003/12/04 20:01:09  blowek1
-// mostly added documentation
-//
-// Revision 1.3  2003/12/03 16:17:03  blowek1
-// incremental check in
-//
-// Revision 1.2  2003/11/26 16:15:47  blowek1
-// revision so that it is working
-//
-// Revision 1.1  2003/11/25 19:45:57  blowek1
-// initial check in
-//
-//
-//
-// ===========================================================================
-//
 
 #endif // RegressionsTest_H
     

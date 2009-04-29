@@ -178,7 +178,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 
 
   void RegressionTest::ParseAndRemoveArguments(int &argc, char *argv[]) {
-     const char *infname = 0;
+    const char *infname = 0;
     const char *outfname = 0;
 	
     // search for the arguments that we know and remove them
@@ -214,7 +214,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
           fileutil::PathName pn(infname);
 	  if (!pn.IsFile() || !pn.IsReadable()) 
             {	  
-	    std::cerr << "unable to read from file \"" << infname << "\"!" << std::endl;
+            throw std::runtime_error(std::string("unable to read input file \"") + infname + "\"!");
  	    infname = 0;
             } 
           else 
@@ -330,26 +330,31 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	}
 	
 	 
-	NumericData *innd, *tnd;
-	if (tolerant &&
-	    (innd = dynamic_cast<NumericData*>(input)) &&
-	    (tnd = dynamic_cast<NumericData*>(&test))) {
-	  if (innd->IsEqualTolerant(*tnd, this->GetRelativeTolerance())) {
-	    this->MatchedMeasurement(test);
-	    ret = 0;
-	  }
-	  else {
-	    this->DifferenceMeasurement(*input, test);
-	  }
-	} else if (*input == test) {
-	  
-	  this->MatchedMeasurement(test);
-	  ret = 0;
-	}
-	else {	  
-	  this->DifferenceMeasurement(*input, test);
-	}
-	
+        CompareVisitor *vis = this->CreateCompareVisitor();
+        vis->SetInputMeasurement(input);
+
+	if ( tolerant )
+          vis->SetTolerance( this->GetRelativeTolerance() );
+        else 
+          vis->SetToleranceOff();
+        
+        test.AcceptVisitor(*vis);
+
+        if ( vis->GetResult() )
+          {
+          // the results matched
+          ret = 1;
+          this->MatchedMeasurement(test);
+          }
+        else 
+          {
+          // the results differ
+          ret = 0;
+          this->DifferenceMeasurement(*input, test);
+          }
+        
+        delete vis;
+        
       } else 
 	this->UnmatchedMeasurement(test);
       delete input;
@@ -359,7 +364,11 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
     return ret;
   }
 
-  
+
+  CompareVisitor *RegressionTest::CreateCompareVisitor(void) const {
+    return new CompareVisitor;
+  }
+
   int RegressionTest::MeasurementTextString(const std::string &str, const std::string &name) {
     StringText st;
     st.SetAttributeName(name);
@@ -402,14 +411,14 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 
   
 
-  int RegressionTest::MeasurementLinkURL(const std::string &name) {
-    return -1;
-  }
+//   int RegressionTest::MeasurementLinkURL(const std::string &name) {
+//     return -1;
+//   }
 
-  int RegressionTest::MeasurementLinkImage(const std::string &name) {
-    return -1;
-  }
-
+//   int RegressionTest::MeasurementLinkImage(const std::string &name) {
+//     return -1;
+//   }
+ 
   int RegressionTest::MeasurementNumericInteger(int i, const std::string &name, bool tolerant) {
     IntegerNumeric in;
     in.SetAttributeName(name);

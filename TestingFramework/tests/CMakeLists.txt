@@ -20,6 +20,7 @@ CREATE_TEST_SOURCELIST ( TestingFrameworkTests2_SRC
   tfRegressionTestTest1.cxx
   tfRegressionTestTest2.cxx
   tfRegressionTestTest3.cxx
+  tfRegressionTestTest4.cxx
 )
 
 INCLUDE_DIRECTORIES( ${TESTINGFRAMEWORK_SOURCE_DIR} )
