@@ -278,7 +278,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	std::cerr << "unknow exception" << std::endl;
       }
 
-    if (this->GetCompareMode())
+    if (this->GetCompareMode() && ret == EXIT_SUCCESS)
       return this->inputUnmatched;
     else
       return ret;
@@ -326,7 +326,16 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	MeasurementFile *inf, *tf;
 	if ((inf = dynamic_cast<MeasurementFile*>(input)) &&
 	    (tf = dynamic_cast<MeasurementFile*>(&test))) {
-        inf->SetFileName(fileutil::PathName(fileutil::PathName(tf->GetFileName()).DirectoryName()).Append(fileutil::PathName(inf->GetFileName()).Tail()).GetPathName());
+        
+        // search the path list for the baseline or input file name
+        fileutil::PathName pn = fileutil::PathName(inf->GetFileName()).Tail().SearchPathList( this->GetInFileSearchPath() );        
+        if ( pn.GetPathName() != "" )
+          {
+          // set it if we found it
+          inf->SetFileName( pn.GetPathName() );
+          }
+        
+        
 	}
 	
 	 
