@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!-- created on victoria.nlm.nih.gov at Wed Apr 22 15:47:26 2009
+<!-- created on victoria.nlm.nih.gov at Thu Apr 30 14:35:53 2009
  -->
 <output>
 <DartMeasurement name="TextString" type="text/string">string text value</DartMeasurement>
@@ -8,6 +8,6 @@
 </DartMeasurement>
 <DartMeasurement name="NumericInteger" type="numeric/integer">0</DartMeasurement>
 <DartMeasurement name="NumericFloat" type="numeric/float">1.1</DartMeasurement>
-<DartMeasurement name="NumericDouble" type="numeric/double">2.22222</DartMeasurement>
+<DartMeasurement name="NumericDouble" type="numeric/double">2.222222222222222</DartMeasurement>
 <DartMeasurement name="NumericBoolean" type="numeric/boolean">1</DartMeasurement>
 </output>

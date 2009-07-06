@@ -13,8 +13,10 @@ protected:
     this->MeasurementTextString( "string text value", "TextString" );
     this->MeasurementTextPlain( "this is\n some plain text\n", "TextPlain" );
 
-    this->MeasurementNumericInteger( int(0), "NumericInteger" );
+    this->MeasurementNumericInteger( long(0), "NumericInteger" );
     this->MeasurementNumericFloat( float(1.1), "NumericFloat" );
+
+    this->SetRelativeTolerance( std::numeric_limits<double>::epsilon()*64 );
     this->MeasurementNumericDouble( double(20.0/9.0), "NumericDouble" );
     this->MeasurementNumericBoolean( true, "NumericBoolean" );
     

@@ -7,7 +7,11 @@ class tfRegressionTestTest4RegressionTest :
   public testutil::RegressionTest 
 {
 public:
-  tfRegressionTestTest4RegressionTest(void) {}
+  tfRegressionTestTest4RegressionTest(void) {    
+    fileutil::PathList pathList;
+    pathList.push_back( fileutil::PathName( TF_DATA_BASELINE ) );        
+    this->SetInFileSearchPath(pathList);
+  }
 protected:
   virtual int Test( int argc, char *argv[] )
   {

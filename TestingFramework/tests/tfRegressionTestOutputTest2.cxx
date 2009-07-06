@@ -19,7 +19,7 @@ protected:
     this->MeasurementFileImagePNG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.png").GetPathName(), "FileImagePNG" );
     this->MeasurementFileImageJPEG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.jpg").GetPathName(), "FileImageJPEG" );
 
-    return TF_EXIT_SUCCESS;
+    return EXIT_SUCCESS;
   }
 
 };
