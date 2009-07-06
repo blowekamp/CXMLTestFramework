@@ -136,7 +136,7 @@ namespace testutil {
 //     virtual int MeasurementLinkURL(const std::string &name);
 //    virtual int MeasurementLinkImage(const std::string &name);
 
-    virtual int MeasurementNumericInteger(int i, const std::string &name, bool tolerant = false);
+    virtual int MeasurementNumericInteger(long i, const std::string &name, bool tolerant = false);
     virtual int MeasurementNumericFloat(float f, const std::string &name, bool tolerant = true);
     virtual int MeasurementNumericDouble(double d, const std::string &name, bool tolerant = true);
     virtual int MeasurementNumericBoolean(bool b, const std::string &name, bool tolerant = false);

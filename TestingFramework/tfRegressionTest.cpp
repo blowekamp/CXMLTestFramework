@@ -427,8 +427,9 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 //   int RegressionTest::MeasurementLinkImage(const std::string &name) {
 //     return -1;
 //   }
+
  
-  int RegressionTest::MeasurementNumericInteger(int i, const std::string &name, bool tolerant) {
+  int RegressionTest::MeasurementNumericInteger(long i, const std::string &name, bool tolerant) {
     IntegerNumeric in;
     in.SetAttributeName(name);
     in.SetValue(i);
