@@ -560,7 +560,8 @@ namespace testutil {
   }
 
   void FloatNumeric::SetValue(float v) {
-    std::ostringstream oss;
+    std::ostringstream oss;    
+    oss.precision(7);
     oss << v;
     this->SetContent(oss.str());
   }
@@ -578,6 +579,7 @@ namespace testutil {
 
   void DoubleNumeric::SetValue(double v) {
     std::ostringstream oss;
+    oss.precision(16);
     oss << v;
     this->SetContent(oss.str());
   }
