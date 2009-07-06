@@ -151,6 +151,7 @@ namespace testutil {
     virtual void SetTolerance( double tolerance );
     virtual double GetTolerance( void ) const;
     //@}
+
     /// \brief returns the the results of the comparison
     ///
     /// return true if the visited measurement and input measurement
@@ -184,21 +185,6 @@ namespace testutil {
 
 }
 
-
-//
-// ===========================================================================
-//
-// $Log: not supported by cvs2svn $
-// Revision 1.2  2003/12/03 20:30:39  blowek1
-// added documenttation
-//
-// Revision 1.1  2003/12/03 16:17:01  blowek1
-// incremental check in
-//
-//
-//
-// ===========================================================================
-//
 
 #endif // MEASUREMENTVISITOR_H
     
