@@ -161,7 +161,7 @@ namespace testutil {
 
   void CompareVisitor::Visit(NumericData &m) {
     NumericData *input;
-    if ( input = dynamic_cast<NumericData*>(this->_input)) 
+    if ( (input = dynamic_cast<NumericData*>(this->_input))) 
       {
       if ( this->GetTolerance() != 0.0 )
         this->compareResults = input->IsEqualTolerant(m, this->GetTolerance() );
