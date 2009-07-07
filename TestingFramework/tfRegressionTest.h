@@ -58,7 +58,7 @@ namespace testutil {
   /// compared, from this the compared output is generated.
   ///
   /// The command line arguments that it know is -I infilename -O
-  /// outfilename. If -I is not specified then it will regression test
+  /// outfilename. If -I is not specified then the regression test
   /// will run in non-CompareMode
   class TESTINGFRAMEWORK_EXPORT RegressionTest {
   public:
