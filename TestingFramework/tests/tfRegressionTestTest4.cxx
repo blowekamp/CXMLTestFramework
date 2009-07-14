@@ -17,9 +17,10 @@ protected:
   {
 
     this->MeasurementFileTextPlain( fileutil::PathName(TF_DATA_BASELINE).Append("plain.txt").GetPathName(), "FileTextPlain" );
-    
-    this->MeasurementFileImagePNG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.png").GetPathName(), "FileImagePNG" );
-    this->MeasurementFileImageJPEG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.jpg").GetPathName(), "FileImageJPEG" );
+  
+// these are currently not supported yet...  
+//    this->MeasurementFileImagePNG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.png").GetPathName(), "FileImagePNG" );
+//    this->MeasurementFileImageJPEG( fileutil::PathName(TF_DATA_BASELINE).Append("vm_head_coronal.jpg").GetPathName(), "FileImageJPEG" );
 
     return EXIT_SUCCESS;
   }
