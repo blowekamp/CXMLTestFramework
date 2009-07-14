@@ -51,9 +51,9 @@ namespace testutil {
   ///
   /// This class provides the functionality of being able help
   /// generate and compare measurements. It does this by operating in
-  /// two mode, CompareMode, and non-CompareMode. In non-CompareMode
+  /// two modes, CompareMode, and non-CompareMode. In non-CompareMode
   /// the measurements are simply output to a file, in the other a
-  /// file of measurements is loaded, called the input
+  /// file of measurements is loaded, called the baseline
   /// measurements, and then the measurements created, the test measuments, are
   /// compared, from this the compared output is generated.
   ///
@@ -155,6 +155,8 @@ namespace testutil {
     /// be printed in the output, otherwise just the filename will be
     /// printed. When loading the files it is assumed that the "Input"
     /// file is in the same directory as the Test file name.  
+    /// 
+    /// \todo The FileImages are not fully supported yet
     virtual int MeasurementFileTextPlain(const std::string &fileName, const std::string &name);
     virtual int MeasurementFileImagePNG(const std::string &fileName, const std::string &name);
     virtual int MeasurementFileImageJPEG(const std::string &fileName, const std::string &name);
