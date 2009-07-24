@@ -85,26 +85,26 @@ namespace testutil {
 
   DifferenceVisitor::~DifferenceVisitor(void) {}
   
-  void DifferenceVisitor::SetInputMeasurement(Measurement *m) { this->_input = m;}
+  void DifferenceVisitor::SetBaselineMeasurement(Measurement *m) { this->_baseline = m;}
   
   void DifferenceVisitor::SetOutStream(std::ostream &_os) { this->os = &_os;}
     
   void DifferenceVisitor::Visit(Measurement &m) {
-    Measurement &input = *this->_input; 
+    Measurement &baseline = *this->_baseline; 
     
-    this->AddPrefixesToNames(m, input);
+    this->AddPrefixesToNames(m, baseline);
     
     this->GetOutStream() << m << std::endl;
-    this->GetOutStream() << input << std::endl;
+    this->GetOutStream() << baseline << std::endl;
   }
 
 
   
   void DifferenceVisitor::Visit(PlainText &m) {
-    Measurement &input = *this->_input; 
+    Measurement &baseline = *this->_baseline; 
     
     std::ostringstream ostr;
-    Diff(input.GetContent(), m.GetContent(), ostr);
+    Diff(baseline.GetContent(), m.GetContent(), ostr);
     PlainText diff;
     diff.SetAttributeName(std::string("Difference ")+m.GetAttributeName());
     diff.SetContent(ostr.str());
@@ -116,9 +116,9 @@ namespace testutil {
     return *this->os;
   }
 
-  void DifferenceVisitor::AddPrefixesToNames(Measurement &test, Measurement &input) {
-      
-    input.SetAttributeName(std::string("Baseline ") + input.GetAttributeName());
+  void DifferenceVisitor::AddPrefixesToNames(Measurement &test, Measurement &baseline) {
+    
+    baseline.SetAttributeName(std::string("Baseline ") + baseline.GetAttributeName());
     test.SetAttributeName(std::string("Test ") + test.GetAttributeName());
   }
 
@@ -151,22 +151,22 @@ namespace testutil {
       return 0.0;
   }
 
-  void CompareVisitor::SetInputMeasurement(Measurement *m) { this->_input = m;}
+  void CompareVisitor::SetBaselineMeasurement(Measurement *m) { this->_baseline = m;}
   
 
   void CompareVisitor::Visit(Measurement &m) {    
-    Measurement &input = *this->_input;
-    this->compareResults = ( input == m );
+    Measurement &baseline = *this->_baseline;
+    this->compareResults = ( baseline == m );
   }
 
   void CompareVisitor::Visit(NumericData &m) {
-    NumericData *input;
-    if ( (input = dynamic_cast<NumericData*>(this->_input))) 
+    NumericData *baseline;
+    if ( (baseline = dynamic_cast<NumericData*>(this->_baseline))) 
       {
       if ( this->GetTolerance() != 0.0 )
-        this->compareResults = input->IsEqualTolerant(m, this->GetTolerance() );
+        this->compareResults = baseline->IsEqualTolerant(m, this->GetTolerance() );
       else 
-        this->compareResults = ( *input == m );
+        this->compareResults = ( *baseline == m );
       }
     else
       {

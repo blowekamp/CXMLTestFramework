@@ -145,6 +145,7 @@ namespace testutil {
 //     virtual int MeasurementImageJPEG(const std::string &name);
 
 
+
     ///@{
     /// \brief Records/Compares a measurement where the content is in a file
     ///
@@ -153,8 +154,8 @@ namespace testutil {
     /// The full pathname should be used for fileName, however this
     /// will not be checked. When in compare mode The full paths will
     /// be printed in the output, otherwise just the filename will be
-    /// printed. When loading the files it is assumed that the "Input"
-    /// file is in the same directory as the Test file name.  
+    /// printed. When loading the files it is assumed that the "Baseline"
+    /// file is in the same directory as the Test file name. (Search Path?)  
     /// 
     /// \todo The FileImages are not fully supported yet
     virtual int MeasurementFileTextPlain(const std::string &fileName, const std::string &name);
@@ -175,7 +176,7 @@ namespace testutil {
     
     
     
-    /// compares the test measurement with the current input
+    /// compares the test measurement with the current baseline
     /// measurement. May print output
     ///
     /// returns 0 if they are the same, non-zero other wise
@@ -197,9 +198,9 @@ namespace testutil {
     /// current input measurement. May print output
     virtual void MatchedMeasurement(Measurement &m);
 
-    /// the test and the input measurement matched but they had
+    /// the test and the baseline measurement matched but they had
     /// different values. Then calles the DifferenceVisitor on the test
-    virtual void DifferenceMeasurement(Measurement &test, Measurement &input);
+    virtual void DifferenceMeasurement(Measurement &test, Measurement &baseline);
     
 
     /// Creates a difference visitor for the measurement

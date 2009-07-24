@@ -103,7 +103,7 @@ namespace testutil {
     ///
     /// This function does not free the measurement. And the
     /// measurement object must be valid when the visitation takes place.
-    virtual void SetInputMeasurement(Measurement *m);
+    virtual void SetBaselineMeasurement(Measurement *m);
 
     /// \brief set the output stream
     virtual void SetOutStream(std::ostream &_os);
@@ -118,7 +118,7 @@ namespace testutil {
     virtual void Visit(PlainText &m);
 
   protected:
-    Measurement *_input; // not freed
+    Measurement *_baseline; // not freed
     
     /// \brief get the out put stream
     virtual std::ostream &GetOutStream(void) const;
@@ -165,7 +165,7 @@ namespace testutil {
     ///
     /// This function does not free the measurement. And the
     /// measurement object must be valid when the visitation takes place.
-    virtual void SetInputMeasurement(Measurement *m);
+    virtual void SetBaselineMeasurement(Measurement *m);
 
  
     /// \brief uses the default operator== of the measurements
@@ -176,7 +176,7 @@ namespace testutil {
     
 
   protected:
-    Measurement *_input; // not freed
+    Measurement *_baseline; // not freed
     
     bool compareResults;
     bool tolerantCompare;

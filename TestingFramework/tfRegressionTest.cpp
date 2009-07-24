@@ -299,7 +299,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
     this->inputUnmatched++;
     DifferenceVisitor *vis = this->CreateDifferenceVisitor();
     vis->SetOutStream(this->GetOutStream());
-    vis->SetInputMeasurement(&input);
+    vis->SetBaselineMeasurement(&input);
     test.AcceptVisitor(*vis);
     delete vis;
   }
@@ -311,20 +311,20 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 
   int RegressionTest::CompareMeasurement(Measurement &test, bool tolerant) {
     // check to see if the top if the Inputs is the same type and name
-    Measurement *input;
+    Measurement *baseline;
     int ret = 1;
     if (!this->Input.empty()) {
       
-      input = this->Input.front();
+      baseline = this->Input.front();
       this->Input.pop_front();
       
-      if (input->GetAttributeName() == test.GetAttributeName() &&
-	  input->GetAttributeType() == test.GetAttributeType()) {
+      if (baseline->GetAttributeName() == test.GetAttributeName() &&
+	  baseline->GetAttributeType() == test.GetAttributeType()) {
 	
 	// this is so very ugly
 	// use the path of the test file to find the input file
 	MeasurementFile *inf, *tf;
-	if ((inf = dynamic_cast<MeasurementFile*>(input)) &&
+	if ((inf = dynamic_cast<MeasurementFile*>(baseline)) &&
 	    (tf = dynamic_cast<MeasurementFile*>(&test))) {
         
         // search the path list for the baseline or input file name
@@ -340,7 +340,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	
 	 
         CompareVisitor *vis = this->CreateCompareVisitor();
-        vis->SetInputMeasurement(input);
+        vis->SetBaselineMeasurement(baseline);
 
 	if ( tolerant )
           vis->SetTolerance( this->GetRelativeTolerance() );
@@ -359,14 +359,14 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
           {
           // the results differ
           ret = 0;
-          this->DifferenceMeasurement(*input, test);
+          this->DifferenceMeasurement(test, *baseline);
           }
         
         delete vis;
         
       } else 
 	this->UnmatchedMeasurement(test);
-      delete input;
+      delete baseline;
     } else 
       this->UnmatchedMeasurement(test);
 
