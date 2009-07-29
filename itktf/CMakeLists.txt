@@ -1,0 +1,15 @@
+PROJECT( ITK_TF )
+
+CMAKE_MINIMUM_REQUIRED ( VERSION 2.4 )
+
+INCLUDE_DIRECTORIES ( "${ITK_TF_BINARY_DIR}" )
+
+SET ( ITK_REGRESSION_OUTPUT_DIR "${ITK_TF_BINARY_DIR}/Testing/Temporary" )
+SET ( ITK_REGRESSION_XML_BASELINE "${ITK_TF_SOURCE_DIR}/XML" )
+SET ( ITK_REGRESSION_DATA_BASELINE "${ITK_TF_SOURCE_DIR}/Data" )
+
+
+CONFIGURE_FILE("${ITK_TF_SOURCE_DIR}/itktfRegressionSupport.h.in"
+  "${ITK_TF_BINARY_DIR}/itktfRegressionSupport.h" IMEDIATE) 
+
+ADD_LIBRARY( itktf STATIC itktfRegression.cxx itktfCompareVisitor.cxx itktfDifferenceVisitor.cxx )
