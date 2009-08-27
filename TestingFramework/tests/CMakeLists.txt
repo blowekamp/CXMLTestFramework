@@ -32,7 +32,7 @@ ADD_EXECUTABLE( tfTests2 ${TestingFrameworkTests2_SRC} )
 TARGET_LINK_LIBRARIES (tfTests2 testingframework fileutil )
 
 
-SET ( TESTINGFRAMEWORK_TEST1 ${EXECUTABLE_OUTPUT_PATH}/tfTests1 )
+SET ( TESTINGFRAMEWORK_TEST1 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/tfTests1 )
 
 SET ( TestsToRun ${TestingFrameworkTests1_SRC} )
 REMOVE ( TestsToRun tfTests1.cxx ) 
@@ -42,7 +42,7 @@ FOREACH ( test ${TestsToRun} )
 ENDFOREACH ( test )
 
 
-SET ( TESTINGFRAMEWORK_TEST2 ${EXECUTABLE_OUTPUT_PATH}/tfTests2 )
+SET ( TESTINGFRAMEWORK_TEST2 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/tfTests2 )
 
 SET ( TestsToRun ${TestingFrameworkTests2_SRC} )
 REMOVE ( TestsToRun tfTests2.cxx ) 
