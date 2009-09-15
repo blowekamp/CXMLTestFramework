@@ -97,6 +97,14 @@ namespace testutil {
     //@}
 
     //@{
+    /// \brief set/get the expected return value from Test
+    ///
+    /// this value can also be set with the -R argument
+    virtual const int GetExpectedReturn(void) const;
+    virtual void SetExpectedReturn( int expectedReturn );
+    //@}
+
+    //@{
     /// \brief set/get the relative tolerance of numeric values
     /// 
     /// Relative tolerance is used for numeric values. It is a maximum
@@ -250,7 +258,8 @@ namespace testutil {
     double relativeTolerance;
 
     int inputUnmatched;
-
+    
+    int expectedReturn;
 
   private: // private data
 

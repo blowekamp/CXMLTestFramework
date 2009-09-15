@@ -54,7 +54,12 @@
 namespace testutil {
 
   
-  RegressionTest::RegressionTest(void) : os(0), is(0), relativeTolerance(std::numeric_limits<float>::epsilon()*64), inputUnmatched(0)  {
+  RegressionTest::RegressionTest(void) : 
+    os(0), 
+    is(0), 
+    relativeTolerance(std::numeric_limits<float>::epsilon()*64), 
+    inputUnmatched(0),
+    expectedReturn(0) {
   }
 
   RegressionTest::~RegressionTest(void) {
@@ -85,6 +90,14 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
   
   const std::string &RegressionTest::GetOutFileName(void) const {
     return this->outFileName.GetPathName();
+  }
+
+  const int RegressionTest::GetExpectedReturn(void) const {
+    return this->expectedReturn;
+  }
+
+  void RegressionTest::SetExpectedReturn( int _expectedReturn ) {
+    this->expectedReturn = _expectedReturn;
   }
 
   void RegressionTest::SetRelativeTolerance(double tol) {
@@ -183,7 +196,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	
     // search for the arguments that we know and remove them
 	
-    for (int i = 1; i < argc; ++i) 
+    for (int i = 1; i < argc;) 
       {      
       // output filename option
       if (!strcmp("-O", argv[i])) 
@@ -197,10 +210,10 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	    std::cerr << "unable to write to file \"" << outfname << "\"!" << std::endl;
 	    outfname = 0;
             }
-	  else 
-	    ++i; // fell off the end
-	  for (; i+1 < argc; ++i)
-	    std::swap(argv[i+1], argv[i-1]);
+
+          //++i; 
+	  for (int j = i; j+2 < argc; ++j)
+	    std::swap(argv[j+2], argv[j]);
 	  argc -=2;
           }
         }    
@@ -217,10 +230,25 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
             throw std::runtime_error(std::string("unable to read input file \"") + infname + "\"!");
  	    infname = 0;
             } 
-          else 
-	    ++i; // fell off the end
-	  for (; i+1 < argc; ++i)
-	    std::swap(argv[i+1], argv[i-1]);
+
+          //++i; // 
+	  for (int j = i; j+2 < argc; ++j)
+	    std::swap(argv[j+2], argv[j]);
+	  argc -=2;
+          }
+        }
+      // expected return value
+      else if (!strcmp("-R", argv[i]))
+        {
+        const char* charExpectedReturn;
+        if (i < argc-1) 
+          {	  
+	  charExpectedReturn = argv[i+1];
+          int num = (int)strtol(  argv[i+1],  0, 10);
+	  
+          this->SetExpectedReturn(num);
+	  for (int j = i; j+2 < argc; ++j)
+	    std::swap(argv[j+2], argv[j]);
 	  argc -=2;
           }
         }
@@ -277,11 +305,19 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
       catch(...) {
 	std::cerr << "unknow exception" << std::endl;
       }
-
-    if (this->GetCompareMode() && ret == EXIT_SUCCESS)
-      return this->inputUnmatched;
-    else
+    if ( ret != this->GetExpectedReturn() )
+      {
       return ret;
+      }
+    else if ( this->GetCompareMode() )
+      {
+      return this->inputUnmatched;
+      }
+    else 
+      {
+      return EXIT_SUCCESS;
+      }
+
   }
 
   void RegressionTest::UnmatchedMeasurement(Measurement &test){    
