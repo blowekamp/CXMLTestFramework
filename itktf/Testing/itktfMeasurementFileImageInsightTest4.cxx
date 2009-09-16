@@ -35,10 +35,11 @@ protected:
     ReaderType::Pointer reader = ReaderType::New();
     reader->SetFileName( inputFilename.GetPathName() );
     reader->UpdateOutputInformation();
-    
-    unsigned long size[2];
+
+    unsigned long size[3];
     size[0] = reader->GetOutput()->GetLargestPossibleRegion().GetSize(0);
     size[1] = reader->GetOutput()->GetLargestPossibleRegion().GetSize(1);
+    size[2] = reader->GetOutput()->GetLargestPossibleRegion().GetSize(2);
 
     // we create a random image +/-0.5
     typedef itk::RandomImageSource<ImageType> RandomSourceType;
@@ -53,12 +54,12 @@ protected:
     addFilter->SetInput1(reader->GetOutput());
     addFilter->SetInput2(randomSource->GetOutput());
 
-
     typedef itk::ImageFileWriter<ImageType> WriterType;
     WriterType::Pointer writer = WriterType::New();
     writer->SetFileName( outputFilename.GetPathName() );
     writer->SetInput( addFilter->GetOutput() );
     writer->Update();
+
 
     // TestingFramework changes
     // The tolerance for the image comparison is first set
