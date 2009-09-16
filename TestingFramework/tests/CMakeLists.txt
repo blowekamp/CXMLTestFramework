@@ -21,6 +21,7 @@ CREATE_TEST_SOURCELIST ( TestingFrameworkTests2_SRC
   tfRegressionTestTest2.cxx
   tfRegressionTestTest3.cxx
   tfRegressionTestTest4.cxx
+  tfRegressionTestArgumentsTest.cxx
 )
 
 INCLUDE_DIRECTORIES( ${TESTINGFRAMEWORK_SOURCE_DIR} )
@@ -46,6 +47,8 @@ SET ( TESTINGFRAMEWORK_TEST2 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/tfTests2 )
 
 SET ( TestsToRun ${TestingFrameworkTests2_SRC} )
 REMOVE ( TestsToRun tfTests2.cxx ) 
+REMOVE ( TestsToRun tfRegressionTestArgumentsTest.cxx )
+
 FOREACH ( test ${TestsToRun} )
   GET_FILENAME_COMPONENT ( TName ${test} NAME_WE )
 
@@ -53,3 +56,10 @@ FOREACH ( test ${TestsToRun} )
   ADD_TEST ( ${TName} ${TESTINGFRAMEWORK_TEST2} ${TName} -I ${TESTINGFRAMEWORK_XML_BASELINE}/${TName}.xml )
 ENDFOREACH ( test )
 
+ADD_TEST ( tfRegressionTestArgumentsTest1 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest1.xml )
+ADD_TEST ( tfRegressionTestArgumentsTest2 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest2.xml one)
+ADD_TEST ( tfRegressionTestArgumentsTest3 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest3.xml one two)
+ADD_TEST ( tfRegressionTestArgumentsTest4 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest4.xml -R 1)
+ADD_TEST ( tfRegressionTestArgumentsTest5 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest5.xml -R 1 one )
+ADD_TEST ( tfRegressionTestArgumentsTest6 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest6.xml -R 1 one two )
+ADD_TEST ( tfRegressionTestArgumentsTest7 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -O ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest7.xml one -R 1 three  )
