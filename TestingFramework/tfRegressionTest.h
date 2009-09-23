@@ -41,6 +41,8 @@
 #include <list>
 #include "TestingFramework/TestFrameworkConfigure.h"
 
+#include <cstdlib>
+
 namespace testutil {
   
   class Measurement;
@@ -260,7 +262,7 @@ namespace testutil {
     int inputUnmatched;
     
     int expectedReturn;
-
+    
   private: // private data
 
     RegressionTest(const RegressionTest &); // Not implemented
