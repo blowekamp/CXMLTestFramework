@@ -45,6 +45,7 @@
 #include <assert.h>
 #include <list>
 #include <limits>
+#include <cstring>
 #if !defined(WIN32) || !defined(_WIN32)
 #include <unistd.h>
 #endif
