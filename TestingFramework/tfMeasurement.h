@@ -2,7 +2,7 @@
 #define MEASUREMENT_H
 
 
-//  $Id: Measurement.h,v 1.14 2004-05-14 19:44:20 blowek1 Exp $
+//  $Id: tfMeasurement.h,v 1.1 2009/09/23 19:53:27 blowekamp Exp $
 // ===========================================================================
 //
 //                            PUBLIC DOMAIN NOTICE
@@ -30,7 +30,7 @@
 
 /// \file
 /// \author  Bradley Lowekamp
-/// \version $Revision: 1.14 $
+/// \version $Revision: 1.1 $
 /// \brief  classes to be used as measurements for a dart board testing
 ///
 /// \note the cache mechnism and conversion methods are not efficient
@@ -39,7 +39,7 @@
 #include <string> 
 #include <iostream>
 #include <cmath>
-#include <stdlib.h>
+#include <cstdlib>
 #include <numeric>
 #include <limits>
 
@@ -436,7 +436,7 @@ namespace testutil {
 
     template <class T>
     static bool _IsEqualTolerant(const T &lm, const T &rm, double tol) {
-      tol = fabs(tol);
+      tol = std::abs(tol);
       T temp = std::abs(lm - rm);     
       return  temp <= tol*std::abs(lm) ||
 	temp <= tol*std::abs(rm) || 
