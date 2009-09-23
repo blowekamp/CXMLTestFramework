@@ -1,6 +1,7 @@
 #include "tfRegressionTest.h"
 
 #include "tfTestSupport.h"
+#include <limits>
 
 class tfRegressionTestTest2RegressionTest :
   public testutil::RegressionTest 
