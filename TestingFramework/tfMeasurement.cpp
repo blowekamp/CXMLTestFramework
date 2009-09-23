@@ -39,6 +39,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <assert.h>
+#include <cstring>
 
 using namespace std;
 
