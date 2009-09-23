@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <assert.h>
+#include <climits>
 #include <limits>
 
 using std::string;
