@@ -102,7 +102,7 @@ namespace testutil {
     /// \brief set/get the expected return value from Test
     ///
     /// this value can also be set with the -R argument
-    virtual const int GetExpectedReturn(void) const;
+    virtual int GetExpectedReturn(void) const;
     virtual void SetExpectedReturn( int expectedReturn );
     //@}
 
