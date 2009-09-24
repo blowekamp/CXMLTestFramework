@@ -93,7 +93,7 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
     return this->outFileName.GetPathName();
   }
 
-  const int RegressionTest::GetExpectedReturn(void) const {
+  int RegressionTest::GetExpectedReturn(void) const {
     return this->expectedReturn;
   }
 
