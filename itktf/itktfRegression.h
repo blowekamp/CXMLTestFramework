@@ -118,6 +118,19 @@ protected:
     return ret;
   }
 
+template <typename T, unsigned int Dimension>
+  int MeasurementInsightFixedArray( const FixedArray<T, Dimension> &array, const std::string &name, bool tolerant = true ) 
+  {    
+    int ret = 0;
+    for (unsigned int i = 0; i < Dimension; ++i) 
+      {
+      std::ostringstream nameWithIndex;
+      nameWithIndex << name << "_" << i;
+      ret += this->MeasurementNumericDouble( array[i], nameWithIndex.str(), tolerant);
+      }
+    return ret;
+  }
+
   template <typename T, unsigned int NRows, unsigned int NColumns>
   int MeasurementInsightMatrix( const Matrix<T, NRows, NColumns> &matrix, const std::string &name, bool tolerant = true ) 
   {    
