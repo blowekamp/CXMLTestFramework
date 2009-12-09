@@ -59,7 +59,7 @@ namespace testutil {
   /// measurements, and then the measurements created, the test measuments, are
   /// compared, from this the compared output is generated.
   ///
-  /// The command line arguments that it know is -I infilename -O
+  /// The command line arguments that it knows are -I infilename -O
   /// outfilename. If -I is not specified then the regression test
   /// will run in non-CompareMode
   class TESTINGFRAMEWORK_EXPORT RegressionTest {
@@ -71,11 +71,19 @@ namespace testutil {
     //@{
     /// \brief set/get the path to search for the input file
     ///
-    /// The paths which are searched for the input file. The first one
+    /// The paths which are searched for the input files. The first one
     /// in the list to contain InFileName will be used.
     ///
-    virtual void SetInFileSearchPath(const fileutil::PathList &path);
+    virtual void SetInFileSearchPath(const fileutil::PathList &pathList);
     virtual const fileutil::PathList &GetInFileSearchPath(void) const;
+    //@}
+
+    //@{
+    /// \brief prepend path to the InFileSearchPath
+    ///
+    /// Prepends the path to the beging of the InFileSearchPath
+    /// PathList 
+    virtual void PrependInFileSearchPath(const fileutil::PathName &path);
     //@}
       
     //@{

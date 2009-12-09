@@ -68,8 +68,13 @@ namespace testutil {
   }
   
   
-void RegressionTest::SetInFileSearchPath(const fileutil::PathList &path) {
-    this->searchPath = path;
+void RegressionTest::SetInFileSearchPath(const fileutil::PathList &pathList) {
+    this->searchPath = pathList;
+  }
+
+
+void RegressionTest::PrependInFileSearchPath(const fileutil::PathName &path) {
+    this->searchPath.push_front( path );
   }
 
 const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
