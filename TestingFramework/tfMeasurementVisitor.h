@@ -108,6 +108,8 @@ namespace testutil {
     /// \brief set the output stream
     virtual void SetOutStream(std::ostream &_os);
 
+    using MeasurementVisitor::Visit;
+
     /// \brief prints out the input and the test measurements
     ///
     /// by default this will be called for all types of measurements
@@ -116,6 +118,17 @@ namespace testutil {
     
     /// \brief performs a "diff" on the two texticies and prints
     virtual void Visit(PlainText &m);
+
+
+    virtual void Visit(MeasurementFile &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(DataMeasurement &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(TextData &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(StringText &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(NumericData &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(IntegerNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(FloatNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(DoubleNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(BooleanNumeric &m) { this->MeasurementVisitor::Visit(m); }
 
   protected:
     Measurement *_baseline; // not freed
@@ -173,10 +186,20 @@ namespace testutil {
 
     /// \brief equivalent comparison but adds relative tolerance options
     virtual void Visit(NumericData &m);
+
+    virtual void Visit(MeasurementFile &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(DataMeasurement &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(TextData &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(PlainText &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(StringText &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(IntegerNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(FloatNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(DoubleNumeric &m) { this->MeasurementVisitor::Visit(m); }
+    virtual void Visit(BooleanNumeric &m) { this->MeasurementVisitor::Visit(m); }
     
 
   protected:
-    Measurement *_baseline; // not freed
+    Measurement *_baseline; // do not free
     
     bool compareResults;
     bool tolerantCompare;
