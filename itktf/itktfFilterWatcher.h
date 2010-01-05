@@ -27,7 +27,7 @@ namespace tf
 {
 
 // The following class is a convenience to watch the progress of a
-// filter, and it's output has eliminated poiters and other system
+// filter, and it's output has eliminated pointers and other system
 // dependent output, so that the text output can be used as a testing
 // measurement
 class FilterWatcher
@@ -49,16 +49,12 @@ public:
     iterationFilterCommand = itk::SimpleMemberCommand<FilterWatcher>::New();
     abortFilterCommand = itk::SimpleMemberCommand<FilterWatcher>::New();
 
-    startFilterCommand->SetCallbackFunction(this,
-                                            &FilterWatcher::StartFilter);
-    endFilterCommand->SetCallbackFunction(this,
-                                          &FilterWatcher::EndFilter);
-    progressFilterCommand->SetCallbackFunction(this,
-                                               &FilterWatcher::ShowProgress);
-    iterationFilterCommand->SetCallbackFunction(this,
-                                               &FilterWatcher::ShowIteration);
-    abortFilterCommand->SetCallbackFunction(this,
-                                               &FilterWatcher::ShowAbort);
+    startFilterCommand->SetCallbackFunction(this, &FilterWatcher::StartFilter);
+    endFilterCommand->SetCallbackFunction(this, &FilterWatcher::EndFilter);
+    progressFilterCommand->SetCallbackFunction(this, &FilterWatcher::ShowProgress);
+    iterationFilterCommand->SetCallbackFunction(this, &FilterWatcher::ShowIteration);
+    abortFilterCommand->SetCallbackFunction(this, &FilterWatcher::ShowAbort);
+
     m_Process->AddObserver(itk::StartEvent(), startFilterCommand);
     m_Process->AddObserver(itk::EndEvent(), endFilterCommand);
     m_Process->AddObserver(itk::ProgressEvent(), progressFilterCommand);
