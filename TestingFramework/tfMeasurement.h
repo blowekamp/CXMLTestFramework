@@ -52,6 +52,11 @@ namespace testutil {
   /// \brief Abstract base class for all measurements
   /// 
   /// \note uses default copy contructor and assignment operator
+  ///
+  /// \todo all the measuement calls should not throw any exceptions,
+  /// to aid in debugging when errors do occour, additially all error
+  /// messages generating by the testing framework, should be labled
+  /// as coming from it 
   class Measurement {
   public:
 
