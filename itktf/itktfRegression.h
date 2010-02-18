@@ -20,7 +20,7 @@
 namespace itk {
 
 
-// \brief a base class of implementing itk tests with the TestingFramework
+/// \brief a base class of implementing itk tests with the TestingFramework
 class Regression 
   : public testutil::RegressionTest 
 {
@@ -29,31 +29,33 @@ public:
 
   virtual ~Regression(void);
 
-  //@{
-  // \brief setting the tolerance for comparing Insight image file
-  // measurements 
-  // 
-  // These values are passed to itk::DifferenceImageFilter. 
-  // \param intensityTolerance the difference between two value before the pixels are considered different
-  // \param numberOfPixelTolerance the number of different pixel before the images are considered different
-  // \param radiusTolerance a search radius to find a simular pixel
-  //
-  // \sa itk::DifferenceImageFilter
+  ///@{
+  /// \brief setting the tolerance for comparing Insight image file
+  /// measurements 
+  /// 
+  /// These values are passed to itk::DifferenceImageFilter. 
+  /// \param intensityTolerance the difference between two value before the pixels are considered different
+  /// \param numberOfPixelTolerance the number of different pixel before the images are considered different
+  /// \param radiusTolerance a search radius to find a simular pixel
+  ///
+  /// \sa itk::DifferenceImageFilter
+  /// 
+  /// \todo Add suport for automatic outputfile name generation
   virtual void SetImageInsightToleranceOff( void );
   virtual void SetImageInsightTolerance( double intensityTolerance, 
                                          unsigned int numberOfPixelTolerance = 0,
                                          unsigned int radiusTolerance = 0 );
-  //@}
+  ///@}
 
   
   int Main( int argc, char *argv[] );
 
 protected:
     
-  // \brief Performs a measurement for an itk image file
-  //
-  // \param fileName the name of an image file for the measurement
-  // \param name gives this measuement a name
+  /// \brief Performs a measurement for an itk image file
+  ///
+  /// \param fileName the name of an image file for the measurement
+  /// \param name gives this measuement a name
   int MeasurementInsightFileImage( const std::string &fileName, const std::string &name); 
 
   template <unsigned int Dimension>
@@ -147,17 +149,17 @@ template <typename T, unsigned int Dimension>
     return ret;
   }
 
-  // overridden to return itk::DiferenceVisitor to allow differencing of "image/itk"
+  /// overridden to return itk::DiferenceVisitor to allow differencing of "image/itk"
   testutil::DifferenceVisitor *CreateDifferenceVisitor(void) const;
 
-  // overridden to return itk::CompareVisitor to allow comparing of "image/itk"
+  /// overridden to return itk::CompareVisitor to allow comparing of "image/itk"
   testutil::CompareVisitor *CreateCompareVisitor(void) const;
 
   // \brief overriden to parse insight specific arguemnts
   //
   // todo this is currently not implemented, arguments such as number
   // of threads, debug mode, and tollerance could be placed here
-//  void ParseAndRemoveArguments(int &argc, char *argv[]);
+  // void ParseAndRemoveArguments(int &argc, char *argv[]);
 
 private:
   double m_IntensityTolerance;
