@@ -13,7 +13,7 @@ static const char * const ITK_REGRESSION_INPUT = "@ITK_REGRESSION_DATA_BASELINE@
 
 
 
-static const unsigned int ITK_TF_DIMENSION_MAX = 4;
+static const unsigned int ITK_TF_DIMENSION_MAX = 3;
 
 }
 #endif // _TF_REGRESSIONSUPPORT_H
