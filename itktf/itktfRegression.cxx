@@ -22,6 +22,8 @@ Regression::Regression(void)
   this->SetInFileSearchPath(pathList);
   
   this->SetImageInsightToleranceOff();
+  
+  m_FileNameCount = 0;
 }
 
 Regression::~Regression(void) 
@@ -42,8 +44,40 @@ void Regression::SetImageInsightTolerance( double intensityTolerance,
   m_RadiusTolerance = radiusTolerance;
 }
 
+
+std::string Regression::GenerateFileName( std::string fileExtension ) const 
+{
+  std::string filename;
+
+  uint16_t hash = 0xfb73; // arbitrary inital value
+  std::string cmdline;
+
+  // make one big string of all the arguments
+  for (std::list<std::string>::const_iterator i = m_ArgumentList.begin(); i != m_ArgumentList.end(); ++i)
+    {
+    cmdline += *i;
+    }
+  
+  // simple hash generating
+  for ( size_t i = 0; i < cmdline.size(); ++i )
+    {
+    hash = (hash<<7) ^ cmdline[i];
+    }
+  
+
+  std::ostringstream strstream;
+  strstream << m_ArgumentList.front() << "_" << std::hex << hash << "_" << ++m_FileNameCount << "." << fileExtension;
+
+  return strstream.str();
+}
+
 int Regression::Main( int argc, char *argv[] ) 
 {
+  m_ArgumentList.clear();
+  for ( int i = 0; i < argc; ++i) 
+    {
+    m_ArgumentList.push_back( std::string( argv[i] ) );
+    }
   int ret = testutil::RegressionTest::Main( argc, argv );
   return ret;
 }
