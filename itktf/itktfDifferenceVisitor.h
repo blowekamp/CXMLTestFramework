@@ -27,6 +27,17 @@ public:
 
   virtual void Visit(testutil::MeasurementFile &m);
 
+  virtual void Visit(testutil::Measurement &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::DataMeasurement &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::TextData &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::PlainText &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::StringText &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::NumericData &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::IntegerNumeric &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::FloatNumeric &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::DoubleNumeric &m) { this->testutil::DifferenceVisitor::Visit(m); }
+  virtual void Visit(testutil::BooleanNumeric &m) { this->testutil::DifferenceVisitor::Visit(m); }
+
 protected:
   
 
