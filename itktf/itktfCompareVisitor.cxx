@@ -2,7 +2,11 @@
 #include "itktfRegressionSupport.h"
 #include "itkImage.h"
 #include "itkImageFileReader.h"
-#include "itkDifferenceImageFilter.h"
+#include "itkImageRegionConstIterator.h"
+
+#include "itktfDifferenceImageFilter.h"
+#include "itktfRegression.h"
+
 
 namespace itk {
 
@@ -36,7 +40,7 @@ void CompareVisitor::Visit(testutil::MeasurementFile &m)
     const char *testImageFilename = m.GetFileName().c_str();
     const char *baselineImageFilename = input->GetFileName().c_str();
 
-    std::cout << "Comparing test image: \"" << testImageFilename << "\" to baseline image: \"" << baselineImageFilename << std::endl;
+    std::cout << "Comparing test image: \"" << testImageFilename << "\" to baseline image: \"" << baselineImageFilename << "\"" << std::endl;
     
     if ( this->RegressionTestImage(testImageFilename, 
                                    baselineImageFilename, 
@@ -59,7 +63,6 @@ void CompareVisitor::Visit(testutil::MeasurementFile &m)
     }
 }
 
-
 int CompareVisitor::RegressionTestImage (const char *testImageFilename, 
                                          const char *baselineImageFilename, 
                                          bool reportErrors,
@@ -69,8 +72,6 @@ int CompareVisitor::RegressionTestImage (const char *testImageFilename,
 {
   // Use the factory mechanism to read the test and baseline files and convert them to double
   typedef itk::Image<double, ITK_TF_DIMENSION_MAX>        ImageType;
-  typedef itk::Image<unsigned char, ITK_TF_DIMENSION_MAX> OutputType;
-  typedef itk::Image<unsigned char,2>                       DiffOutputType;
   typedef itk::ImageFileReader<ImageType>                   ReaderType;
 
   // Read the baseline file
@@ -100,27 +101,40 @@ int CompareVisitor::RegressionTestImage (const char *testImageFilename,
     }
 
   // The sizes of the baseline and test image must match
-  ImageType::SizeType baselineSize;
-  baselineSize = baselineReader->GetOutput()->GetLargestPossibleRegion().GetSize();
-  ImageType::SizeType testSize;
-  testSize = testReader->GetOutput()->GetLargestPossibleRegion().GetSize();
-  
+  ImageType::SizeType baselineSize = baselineReader->GetOutput()->GetLargestPossibleRegion().GetSize();
+  ImageType::SizeType testSize = testReader->GetOutput()->GetLargestPossibleRegion().GetSize();  
   if (baselineSize != testSize)
     {
     return 1;
     }
 
-  // Now compare the two images
-  typedef itk::DifferenceImageFilter<ImageType,ImageType> DiffType;
-  DiffType::Pointer diff = DiffType::New();
-  diff->SetValidInput(baselineReader->GetOutput());
-  diff->SetTestInput(testReader->GetOutput());
-  diff->SetDifferenceThreshold( intensityTolerance );
-  diff->SetToleranceRadius( radiusTolerance );
-  diff->UpdateLargestPossibleRegion();
+  // todo change to some kind of fuzzy test. What is the required
+  // resolution of spacing?
+  ImageType::SpacingType baselineSpacing = baselineReader->GetOutput()->GetSpacing();
+  ImageType::SpacingType testSpacing = testReader->GetOutput()->GetSpacing();
+  if (baselineSpacing != testSpacing)
+    {
+    return 1;
+    }
+  
+  // todo change to some kind of fuzzy a test.
+  ImageType::PointType baselineOrigin = baselineReader->GetOutput()->GetOrigin();
+  ImageType::PointType testOrigin = testReader->GetOutput()->GetOrigin();
+  if ( baselineOrigin != baselineOrigin )
+    {
+    return 1;
+    }
 
-  unsigned long status = 0;
-  status = diff->GetNumberOfPixelsWithDifferences();
+  // todo add orientation
+
+  
+  unsigned long status =
+    Regression::CompareImage< ImageType >( testReader->GetOutput(),
+                                           baselineReader->GetOutput(),
+                                           intensityTolerance,
+                                           numberOfPixelsTolerance,
+                                           radiusTolerance );
+  
 
   return (status > numberOfPixelsTolerance) ? 1 : 0;
 }
