@@ -6,8 +6,8 @@
 #include "itktfRegressionSupport.h"
 #include "itktfCompareVisitor.h"
 #include "itktfDifferenceVisitor.h"
+#include "itktfDifferenceImageFilter.h"
 
-#include "itkDifferenceImageFilter.h"
 #include "itkExtractImageFilter.h"
 #include "itkImageFileReader.h"
 
@@ -53,7 +53,7 @@ public:
   
   int Main( int argc, char *argv[] );
 
-  /// \brief Generates a unique output filenames based on the command
+  /// \brief Generates unique output filenames based on the command
   /// line arguments.
   ///
   /// The generated filename assumes that the arguments are unquie for
@@ -179,10 +179,10 @@ template <typename T, unsigned int Dimension>
 
 public:
 
-  /// \breif Computets the differences between two file images.
+  /// \breif Computes the differences between two file images.
   ///
   template< typename ImageType >
-  static unsigned long DifferenceImage( const fileutil::PathName testFileName, 
+  static unsigned long CompareImage( const fileutil::PathName testFileName, 
                                         const fileutil::PathName baselineFileName,
                                         double intensityTolerance = 0.0,
                                         unsigned int numberOfPixelsTolerance = 0, 
@@ -198,7 +198,7 @@ public:
     baselineReader->SetFileName( baselineFileName.GetPathName() );
     baselineReader->Update();
 
-    return DifferenceImage<ImageType>( testReader->GetOutput(),
+    return CompareImage<ImageType>( testReader->GetOutput(),
                                        baselineReader->GetOutput(),
                                        intensityTolerance,
                                        numberOfPixelsTolerance,
@@ -212,7 +212,7 @@ public:
   /// \param testImage an image which accuracy is in question
   /// \param baselineImage an image that is considered the ground truth and correct
   ///
-  /// These values are passed to itk::DifferenceImageFilter. 
+  /// These values are passed to itk::tf:DifferenceImageFilter. 
   /// \param intensityTolerance the difference between two value before the pixels are considered different
   /// \param numberOfPixelTolerance the number of different pixel before the images are considered different
   /// \param radiusTolerance a search radius to find a simular pixel
@@ -220,16 +220,16 @@ public:
   /// \return the number of pixels with a value outside the thresholds
   /// established by the parameters
   ///
-  /// \sa itk::DifferenceImageFilter
+  /// \sa itk::tf::DifferenceImageFilter
   /// 
   template< typename ImageType >
-  static unsigned long DifferenceImage( typename ImageType::ConstPointer testImage, 
+  static unsigned long CompareImage( typename ImageType::ConstPointer testImage, 
                                         typename ImageType::ConstPointer baselineImage,
                                         typename ImageType::RegionType region ) 
-  { return DifferenceImage<ImageType>( testImage, baselineImage, 0.0, 0, 0, region ); }
+  { return CompareImage<ImageType>( testImage, baselineImage, 0.0, 0, 0, region ); }
 
   template< typename ImageType >
-  static unsigned long DifferenceImage( typename ImageType::ConstPointer testImage, 
+  static unsigned long CompareImage( typename ImageType::ConstPointer testImage, 
                                         typename ImageType::ConstPointer baselineImage,
                                         double intensityTolerance = 0.0,
                                         unsigned int numberOfPixelsTolerance = 0, 
@@ -238,8 +238,11 @@ public:
   {
     unsigned long status = 0;
     
+    
     if ( region != typename ImageType::RegionType() ) 
       {
+      // verify that the requested compare region is contained in the
+      // base line region
 
       // extract only the specified region
       typedef itk::ExtractImageFilter<ImageType, ImageType> ExtractImageFilter;
@@ -247,11 +250,12 @@ public:
       extractor->SetExtractionRegion( testImage->GetLargestPossibleRegion() );
       extractor->SetInput( baselineImage );
     
-      typedef itk::DifferenceImageFilter<ImageType,ImageType> DiffType;
+
+      typedef itk::tf::DifferenceImageFilter<ImageType,ImageType> DiffType;
       typename DiffType::Pointer diff = DiffType::New();
       diff->SetValidInput( extractor->GetOutput() );
       diff->SetTestInput( testImage );
-      diff->SetDifferenceThreshold( intensityTolerance );
+      diff->SetMagnitudeThreshold( intensityTolerance );
       diff->SetToleranceRadius( radiusTolerance );
       diff->UpdateLargestPossibleRegion();
 
@@ -259,12 +263,25 @@ public:
       }
     else 
       {      
+      // verify that the sizes of the images are the same
+      //
+      // If the sizes don't match then we can't compare
+      typename ImageType::SizeType baselineSize = baselineImage->GetLargestPossibleRegion().GetSize();
+      typename ImageType::SizeType testSize = testImage->GetLargestPossibleRegion().GetSize();
+  
+
+      if (baselineSize != testSize)
+        {
+        return itk::NumericTraits<unsigned long>::max();
+        }
+
+
       // compare the whole image
-      typedef itk::DifferenceImageFilter<ImageType,ImageType> DiffType;
+      typedef itk::tf::DifferenceImageFilter<ImageType,ImageType> DiffType;
       typename DiffType::Pointer diff = DiffType::New();
       diff->SetValidInput( baselineImage );
       diff->SetTestInput( testImage );
-      diff->SetDifferenceThreshold( intensityTolerance );
+      diff->SetMagnitudeThreshold( intensityTolerance );
       diff->SetToleranceRadius( radiusTolerance );
       diff->UpdateLargestPossibleRegion();
 
