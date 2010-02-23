@@ -3,6 +3,9 @@ IF(COMMAND cmake_policy)
   CMAKE_POLICY(SET CMP0003 NEW)
 ENDIF(COMMAND cmake_policy)
 
+ADD_EXECUTABLE( itktfDifferenceImageFilterTest itktfDifferenceImageFilterTest.cxx )
+TARGET_LINK_LIBRARIES( itktfDifferenceImageFilterTest testingframework itktf )
+
 ADD_EXECUTABLE( itktfMeasurementFileImageInsightTest1 itktfMeasurementFileImageInsightTest1.cxx )
 TARGET_LINK_LIBRARIES( itktfMeasurementFileImageInsightTest1 testingframework ITKBasicFilters ITKIO itktf )
 ADD_TEST( itktfMeasurementFileImageInsightTest1 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/itktfMeasurementFileImageInsightTest1 -I ${ITK_REGRESSION_XML_BASELINE}/itktfMeasurementFileImageInsightTest1.xml )
