@@ -69,7 +69,16 @@ std::string Regression::GenerateFileName( std::string fileExtension, std::string
   std::ostringstream strstream;
   strstream << m_ArgumentList.front() << "_" << std::hex << hash << "_" << ++m_FileNameCount << "." << fileExtension;
 
-  return strstream.str();
+
+  if ( rootPath != "" )
+    {
+    // append the root path to the genereate file name
+    return fileutil::PathName( rootPath ).Append( fileutil::PathName( strstream.str() ) ).GetPathName();
+      }
+  else 
+    {
+    return strstream.str();
+    }
 }
 
 int Regression::Main( int argc, char *argv[] ) 
