@@ -64,7 +64,7 @@ public:
   /// methods is called.
   ///
   /// \todo implement this methods
-  std::string GenerateFileName( std::string fileExtension ) const;
+  std::string GenerateFileName( std::string fileExtension, std::string rootPath = "" ) const;
 
 protected:
     
