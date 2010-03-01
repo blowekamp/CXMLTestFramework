@@ -71,7 +71,7 @@ namespace fileutil {
     
     virtual bool IsNativeFormat(void) const;
 
-    /// \brief replaces current path name with joined pathnames
+    /// \brief joins the current path and f with a directory seporator
     ///
     /// returns a reference to this
     ///
