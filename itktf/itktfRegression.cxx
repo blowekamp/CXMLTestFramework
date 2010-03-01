@@ -61,7 +61,8 @@ std::string Regression::GenerateFileName( std::string fileExtension ) const
   // simple hash generating
   for ( size_t i = 0; i < cmdline.size(); ++i )
     {
-    hash = (hash<<7) ^ cmdline[i];
+    // rotate left 7
+    hash = ( (hash<<7) | (hash >> (16-7)))  ^ cmdline[i];
     }
   
 
