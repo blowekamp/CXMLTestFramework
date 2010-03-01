@@ -45,7 +45,7 @@ void Regression::SetImageInsightTolerance( double intensityTolerance,
 }
 
 
-std::string Regression::GenerateFileName( std::string fileExtension ) const 
+std::string Regression::GenerateFileName( std::string fileExtension, std::string rootPath ) const 
 {
   std::string filename;
 
