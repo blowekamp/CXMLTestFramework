@@ -179,7 +179,7 @@ template <typename T, unsigned int Dimension>
 
 public:
 
-  /// \breif Computes the differences between two file images.
+  /// \brief Computes the differences between two file images.
   ///
   template< typename ImageType >
   static unsigned long CompareImage( const fileutil::PathName testFileName, 
