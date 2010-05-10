@@ -19,7 +19,7 @@
 #include "itkPoint.h"
 #include "itkVector.h"
 #include "itkMatrix.h"
-
+#include "itkImageFileWriter.h"
 
 namespace itk {
 
@@ -63,7 +63,6 @@ public:
   /// finally, the * is a sequential number incremented each time the
   /// methods is called.
   ///
-  /// \todo implement this methods
   std::string GenerateFileName( std::string fileExtension, std::string rootPath = "" ) const;
 
 protected:
@@ -73,6 +72,22 @@ protected:
   /// \param fileName the name of an image file for the measurement
   /// \param name gives this measuement a name
   int MeasurementInsightFileImage( const std::string &fileName, const std::string &name); 
+
+  template < typename TImageType >
+  int MeasurementInsightImage( const typename TImageType::Pointer image, const std::string &name )
+  {
+    // todo need to have a better output directory!
+    typedef TImageType ImageType;
+    std::string fileName = this->GenerateFileName( "mha" );
+    typedef itk::ImageFileWriter<ImageType> WriterType;
+    typename WriterType::Pointer writer = WriterType::New();
+    writer->SetFileName( fileName );
+    writer->SetInput( image );
+    writer->Update();
+    
+    return this->MeasurementInsightFileImage( fileName, name );      
+  }
+
 
   template <unsigned int Dimension>
   int MeasurementInsightSize( const Size<Dimension> &size, const std::string &name, bool tolerant = false ) 
@@ -136,7 +151,7 @@ protected:
     return ret;
   }
 
-template <typename T, unsigned int Dimension>
+  template <typename T, unsigned int Dimension>
   int MeasurementInsightFixedArray( const FixedArray<T, Dimension> &array, const std::string &name, bool tolerant = true ) 
   {    
     int ret = 0;
