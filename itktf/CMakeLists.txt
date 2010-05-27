@@ -25,4 +25,7 @@ CONFIGURE_FILE("${ITK_TF_SOURCE_DIR}/itktfRegressionSupport.h.in"
 
 ADD_LIBRARY( itktf STATIC itktfRegression.cxx itktfCompareVisitor.cxx itktfDifferenceVisitor.cxx )
 TARGET_LINK_LIBRARIES ( itktf ITKIO )
-ADD_SUBDIRECTORY( Testing )
+
+IF( BUILD_TESTING )
+  ADD_SUBDIRECTORY( Testing )
+ENDIF( BUILD_TESTING )
