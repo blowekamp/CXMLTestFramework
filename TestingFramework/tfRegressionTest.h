@@ -62,6 +62,10 @@ namespace testutil {
   /// The command line arguments that it knows are -I infilename -O
   /// outfilename. If -I is not specified then the regression test
   /// will run in non-CompareMode
+  /// 
+  /// \todo The character set for strings need to be verified and
+  /// printed correctly. Not printable characters are not handled
+  /// correctly. 
   class TESTINGFRAMEWORK_EXPORT RegressionTest {
   public:
 
