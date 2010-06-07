@@ -217,7 +217,6 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	    outfname = 0;
             }
 
-          //++i; 
 	  for (int j = i; j+2 < argc; ++j)
 	    std::swap(argv[j+2], argv[j]);
 	  argc -=2;
@@ -237,7 +236,6 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
  	    infname = 0;
             } 
 
-          //++i; // 
 	  for (int j = i; j+2 < argc; ++j)
 	    std::swap(argv[j+2], argv[j]);
 	  argc -=2;
@@ -256,6 +254,26 @@ const fileutil::PathList &RegressionTest::GetInFileSearchPath(void) const {
 	  for (int j = i; j+2 < argc; ++j)
 	    std::swap(argv[j+2], argv[j]);
 	  argc -=2;
+          }
+        }
+      // additional in file search path
+      else if (!strcmp("-P", argv[i]))
+        {
+
+	if (i < argc-1) 
+          {	  
+	  const char *insearchpath = argv[i+1];	 
+          fileutil::PathName pn(insearchpath);
+	  if (!pn.IsDirectory() || !pn.IsReadable()) 
+            {	  
+            throw std::runtime_error(std::string("unable to read input path \"") + insearchpath + "\"!");
+ 	    infname = 0;
+            } 
+     
+	  for (int j = i; j+2 < argc; ++j)
+	    std::swap(argv[j+2], argv[j]);
+	  argc -=2;
+          this->PrependInFileSearchPath( pn );
           }
         }
       else

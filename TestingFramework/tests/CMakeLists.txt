@@ -63,3 +63,4 @@ ADD_TEST ( tfRegressionTestArgumentsTest4 ${TESTINGFRAMEWORK_TEST2}  tfRegressio
 ADD_TEST ( tfRegressionTestArgumentsTest5 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -I ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest5.xml -R 1 one )
 ADD_TEST ( tfRegressionTestArgumentsTest6 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -I ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest6.xml -R 1 one two )
 ADD_TEST ( tfRegressionTestArgumentsTest7 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -I ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest7.xml one -R 1 three  )
+ADD_TEST ( tfRegressionTestArgumentsTest8 ${TESTINGFRAMEWORK_TEST2}  tfRegressionTestArgumentsTest -P ${TESTINGFRAMEWORK_DATA_BASELINE} -I ${TESTINGFRAMEWORK_XML_BASELINE}/tfRegressionTestArgumentsTest8.xml one two  )
