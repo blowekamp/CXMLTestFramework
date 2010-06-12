@@ -214,10 +214,10 @@ public:
     baselineReader->Update();
 
     return CompareImage<ImageType>( testReader->GetOutput(),
-                                       baselineReader->GetOutput(),
-                                       intensityTolerance,
-                                       numberOfPixelsTolerance,
-                                       radiusTolerance );
+                                    baselineReader->GetOutput(),
+                                    intensityTolerance,
+                                    numberOfPixelsTolerance,
+                                    radiusTolerance );
   }
 
   ///@{
