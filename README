@@ -1,0 +1,18 @@
+This has been submitted as a Insight Journal Article:
+http://hdl.handle.net/10380/3116
+
+If we look at the XML for the CDash (http://public.kitware.com/Wiki/CDash:XML), specifically the file
+which describes the valid xml for test (ValidationSchemata/Text.xsd)
+we see the NamedMeasurement tag. This is the field that is displayed
+for the test. It can show a variety of types with the "type"
+attribute. Previously Dart defined the following types:
+"numeric/integer", "numeric/float", "numeric/double",
+"numeric/boolean", "text/string", "text/plain", "image/png",
+"image/jpeg".
+
+The way this testing system works is each test produces XML output of
+"NamedMeasurements". This XML is then compared against a XML
+baseline. Then any difference will be reported and sent to CDash via
+ctest. To produce a baseline, the output of the test should be
+carefully manually verified, then attributes added to the XML tags to
+describe how to do comparisons.
