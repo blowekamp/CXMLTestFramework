@@ -4,31 +4,33 @@ CMAKE_MINIMUM_REQUIRED ( VERSION 2.4 )
 
 
 # Find ITK.
-FIND_PACKAGE ( ITK REQUIRED )
+FIND_PACKAGE ( ITK )
 IF ( ITK_FOUND )
   INCLUDE ( ${ITK_USE_FILE} )
+
+
+
+  INCLUDE_DIRECTORIES ( "${ITK_TF_SOURCE_DIR}" )
+  INCLUDE_DIRECTORIES ( "${ITK_TF_BINARY_DIR}" )
+
+  
+  SET ( ITK_REGRESSION_OUTPUT_DIR "${ITK_TF_BINARY_DIR}/Testing/Temporary" )
+  SET ( ITK_REGRESSION_XML_BASELINE "${ITK_TF_SOURCE_DIR}/Testing/XML" )
+  SET ( ITK_REGRESSION_DATA_BASELINE "${ITK_TF_SOURCE_DIR}/Testing/Data" )
+  
+  MAKE_DIRECTORY( ${ITK_REGRESSION_OUTPUT_DIR} )
+  
+  CONFIGURE_FILE("${ITK_TF_SOURCE_DIR}/itktfRegressionSupport.h.in"
+    "${ITK_TF_BINARY_DIR}/itktfRegressionSupport.h" IMEDIATE) 
+  
+  ADD_LIBRARY( itktf STATIC itktfRegression.cxx itktfCompareVisitor.cxx itktfDifferenceVisitor.cxx )
+  TARGET_LINK_LIBRARIES ( itktf ITKIO )
+  
+  ADD_EXECUTABLE( itktfImageCompare itktfImageCompare.cxx )
+  TARGET_LINK_LIBRARIES( itktfImageCompare itktf testingframework )
+  
+  IF( BUILD_TESTING )
+    ADD_SUBDIRECTORY( Testing )
+  ENDIF( BUILD_TESTING )
+  
 ENDIF ( ITK_FOUND )
-
-
-INCLUDE_DIRECTORIES ( "${ITK_TF_SOURCE_DIR}" )
-INCLUDE_DIRECTORIES ( "${ITK_TF_BINARY_DIR}" )
-
-
-SET ( ITK_REGRESSION_OUTPUT_DIR "${ITK_TF_BINARY_DIR}/Testing/Temporary" )
-SET ( ITK_REGRESSION_XML_BASELINE "${ITK_TF_SOURCE_DIR}/Testing/XML" )
-SET ( ITK_REGRESSION_DATA_BASELINE "${ITK_TF_SOURCE_DIR}/Testing/Data" )
-
-MAKE_DIRECTORY( ${ITK_REGRESSION_OUTPUT_DIR} )
-
-CONFIGURE_FILE("${ITK_TF_SOURCE_DIR}/itktfRegressionSupport.h.in"
-  "${ITK_TF_BINARY_DIR}/itktfRegressionSupport.h" IMEDIATE) 
-
-ADD_LIBRARY( itktf STATIC itktfRegression.cxx itktfCompareVisitor.cxx itktfDifferenceVisitor.cxx )
-TARGET_LINK_LIBRARIES ( itktf ITKIO )
-
-ADD_EXECUTABLE( itktfImageCompare itktfImageCompare.cxx )
-TARGET_LINK_LIBRARIES( itktfImageCompare itktf testingframework )
-
-IF( BUILD_TESTING )
-  ADD_SUBDIRECTORY( Testing )
-ENDIF( BUILD_TESTING )
